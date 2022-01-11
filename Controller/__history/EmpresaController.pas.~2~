@@ -1,0 +1,21 @@
+unit EmpresaController;
+
+interface
+
+  uses UEmpresaModel,System.Generics.Collections;
+
+ Type
+  TEmpresaController = class
+
+  private
+
+  public
+
+    function getAll():TList<TEmpresa>;
+ end;
+
+implementation
+
+
+
+end.

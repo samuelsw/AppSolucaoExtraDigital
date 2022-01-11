@@ -1,0 +1,40 @@
+unit dmConexao;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, IBX.IBDatabase, Data.DB, Data.Win.ADODB, Vcl.Forms, Data.DBXInterBase, Data.SqlExpr, Data.DBXFirebird;
+
+type
+  TDataModule2 = class(TDataModule)
+    SQLConnection1: TSQLConnection;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DataModule2: TDataModule2;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TDataModule2.DataModuleCreate(Sender: TObject);
+var sCaminhoBD : String;
+begin
+// sCaminhoBD := ExtractFilePath(Application.ExeName) +'DADOS.FDB';
+// IBDatabase1.databasename := sCaminhoBD;
+// IBDatabase1.loginprompt  := false;
+// IBDatabase1.params.add ('password=masterkey');
+// IBDatabase1.params.add ('user_name=sysdba');
+// IBDatabase1.sqldialect   := 3;
+// IBDatabase1.connected    := true;
+  SQLConnection1.connected := true;
+end;
+
+end.

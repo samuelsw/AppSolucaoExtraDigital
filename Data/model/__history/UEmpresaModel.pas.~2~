@@ -1,0 +1,28 @@
+unit UEmpresaModel;
+
+interface
+
+type
+  TEmpresa =  class
+
+  private
+    FIdEmp        :Integer;
+    FNEmpresa     : string;
+    FCNPJ         : String;
+    FInscricao    : string;
+    FAtivo        : string;
+    FDataCadastro : TDateTime;
+    FTelComercial : string;
+    FTelCelular   : string;
+    FObs          : string ;
+    FEmail        : string;
+    FExluido      : string;
+    FDataExclusao : TDateTime;
+  public
+   { public declarations }
+
+  end;
+
+implementation
+
+end.

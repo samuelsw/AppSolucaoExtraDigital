@@ -1,0 +1,16 @@
+unit UEmpresaModel;
+
+interface
+
+type
+  TEmpresa =  class()
+  private
+
+  public
+   { public declarations }
+
+  end;
+
+implementation
+
+end.
