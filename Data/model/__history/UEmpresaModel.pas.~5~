@@ -1,0 +1,136 @@
+unit UEmpresaModel;
+
+interface
+
+type
+  TEmpresa =  class
+
+  private
+    FIdEmp        :Integer;
+    FNEmpresa     : string;
+    FCNPJ         : String;
+    FInscricao    : string;
+    FAtivo        : string;
+    FDataCadastro : TDateTime;
+    FTelComercial : string;
+    FTelCelular   : string;
+    FObs          : string ;
+    FEmail        : string;
+    FExluido      : string;
+    FDataExclusao : TDateTime;
+    function getIdEmp: Integer;
+    function getNEmpresa: string;
+
+
+    procedure SetAtivo(const Value: string);
+    procedure SetCNPJ(const Value: String);
+    procedure SetDataCadastro(const Value: TDateTime);
+    procedure SetDataExclusao(const Value: TDateTime);
+    procedure SetEmail(const Value: string);
+    procedure SetExluido(const Value: string);
+    procedure setIdEmp(const Value: Integer);
+    procedure SetInscricao(const Value: string);
+    procedure setNEmpresa(const Value: string);
+    procedure SetObs(const Value: string);
+    procedure SetTelCelular(const Value: string);
+    procedure SetTelComercial(const Value: string);
+  public
+   { public declarations }
+   property  IdEmp :Integer read getIdEmp() write setIdEmp();
+   property NEmpresa : string read getNEmpresa() write setNEmpresa();
+   property CNPJ         : String read FCNPJ write SetCNPJ;
+   property Inscricao    : string read FInscricao write SetInscricao;
+   property Ativo        : string read FAtivo write SetAtivo;
+   property DataCadastro : TDateTime read FDataCadastro write SetDataCadastro;
+   property TelComercial : string read FTelComercial write SetTelComercial;
+   property TelCelular   : string read FTelCelular write SetTelCelular;
+   property Obs          : string  read FObs write SetObs;
+   property Email        : string read FEmail write SetEmail;
+   property Exluido      : string read FExluido write SetExluido;
+   property DataExclusao : TDateTime read FDataExclusao write SetDataExclusao;
+
+
+   function new():TEmpresa;
+
+  end;
+
+implementation
+
+{ TEmpresa }
+
+function TEmpresa.getIdEmp: Integer;
+begin
+  result := Self.FIdEmp;
+end;
+
+function TEmpresa.getNEmpresa: string;
+begin
+  result := Self.FNEmpresa;
+end;
+
+function TEmpresa.new: TEmpresa;
+begin
+  Result := TEmpresa.Create();
+end;
+
+procedure TEmpresa.SetAtivo(const Value: string);
+begin
+  FAtivo := Value;
+end;
+
+procedure TEmpresa.SetCNPJ(const Value: String);
+begin
+  FCNPJ := Value;
+end;
+
+procedure TEmpresa.SetDataCadastro(const Value: TDateTime);
+begin
+  FDataCadastro := Value;
+end;
+
+procedure TEmpresa.SetDataExclusao(const Value: TDateTime);
+begin
+  FDataExclusao := Value;
+end;
+
+procedure TEmpresa.SetEmail(const Value: string);
+begin
+  FEmail := Value;
+end;
+
+procedure TEmpresa.SetExluido(const Value: string);
+begin
+  FExluido := Value;
+end;
+
+procedure TEmpresa.setIdEmp(const Value: Integer);
+begin
+  FIdEmp := Value;
+end;
+
+procedure TEmpresa.SetInscricao(const Value: string);
+begin
+  FInscricao := Value;
+end;
+
+procedure TEmpresa.setNEmpresa(const Value: string);
+begin
+  FNEmpresa := Value;
+end;
+
+procedure TEmpresa.SetObs(const Value: string);
+begin
+  FObs := Value;
+end;
+
+procedure TEmpresa.SetTelCelular(const Value: string);
+begin
+  FTelCelular := Value;
+end;
+
+procedure TEmpresa.SetTelComercial(const Value: string);
+begin
+  FTelComercial := Value;
+end;
+
+end.
