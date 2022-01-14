@@ -1,11 +1,12 @@
-object DataModule2: TDataModule2
+object UdmConexao: TUdmConexao
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 322
-  Width = 508
-  object SQLConnection1: TSQLConnection
+  Height = 106
+  Width = 222
+  object SqlConnection: TSQLConnection
     ConnectionName = 'FBConnection'
     DriverName = 'Firebird'
+    LoginPrompt = False
     Params.Strings = (
       'DriverName=Firebird'
       'Database=DADOS.FDB'
@@ -21,7 +22,7 @@ object DataModule2: TDataModule2
       'WaitOnLocks=True'
       'IsolationLevel=ReadCommitted'
       'Trim Char=False')
-    Left = 48
+    Left = 96
     Top = 32
   end
 end

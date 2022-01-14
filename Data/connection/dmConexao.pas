@@ -3,20 +3,24 @@ unit dmConexao;
 interface
 
 uses
-  System.SysUtils, System.Classes, IBX.IBDatabase, Data.DB, Data.Win.ADODB, Vcl.Forms, Data.DBXInterBase, Data.SqlExpr, Data.DBXFirebird;
+  System.SysUtils, System.Classes,  Data.SqlExpr, Data.DBXFirebird,
+  Data.FMTBcd,UAppController, Data.DB, Vcl.Dialogs;
 
 type
-  TDataModule2 = class(TDataModule)
-    SQLConnection1: TSQLConnection;
+  TUdmConexao = class(TDataModule)
+    SqlConnection : TSQLConnection;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
+
+    var AppController : TAppConnection;
+
   public
     { Public declarations }
   end;
 
 var
-  DataModule2: TDataModule2;
+  UdmConexao: TUdmConexao;
 
 implementation
 
@@ -24,17 +28,17 @@ implementation
 
 {$R *.dfm}
 
-procedure TDataModule2.DataModuleCreate(Sender: TObject);
+procedure TUdmConexao.DataModuleCreate(Sender: TObject);
 var sCaminhoBD : String;
 begin
-// sCaminhoBD := ExtractFilePath(Application.ExeName) +'DADOS.FDB';
-// IBDatabase1.databasename := sCaminhoBD;
-// IBDatabase1.loginprompt  := false;
-// IBDatabase1.params.add ('password=masterkey');
-// IBDatabase1.params.add ('user_name=sysdba');
-// IBDatabase1.sqldialect   := 3;
-// IBDatabase1.connected    := true;
-  SQLConnection1.connected := true;
+  AppController := TAppConnection.new(SqlConnection);
+
+  if not AppController.ConectDB then
+  begin
+    showmessage('Não foi possível conectar ao banco de dados');
+    AppController.OpenConfig();
+  end;
+
 end;
 
 end.
