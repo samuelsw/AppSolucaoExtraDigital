@@ -3,10 +3,12 @@ unit dmEmpresa;
 interface
 
 uses
-  System.SysUtils, System.Classes;
+  System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr;
 
 type
-  TDataModule1 = class(TDataModule)
+  TUdmEmpresa = class(TDataModule)
+    QryInsert: TSQLQuery;
+    QrySelect: TSQLQuery;
   private
     { Private declarations }
   public
@@ -14,9 +16,12 @@ type
   end;
 
 var
-  DataModule1: TDataModule1;
+  UdmEmpresa: TUdmEmpresa;
 
 implementation
+
+uses
+  dmConexao;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 

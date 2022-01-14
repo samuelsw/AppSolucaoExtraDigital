@@ -103,15 +103,20 @@
         </DCCReference>
         <DCCReference Include="Data\model\UEmpresaModel.pas"/>
         <DCCReference Include="Data\connection\dmConexao.pas">
-            <Form>DataModule2</Form>
+            <Form>UdmConexao</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="Controller\EmpresaController.pas"/>
         <DCCReference Include="Data\dmEmpresa.pas">
-            <Form>DataModule1</Form>
+            <Form>UdmEmpresa</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Controller\UAppController.pas"/>
+        <DCCReference Include="View\UConfig.pas">
+            <Form>FrmConfig</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
