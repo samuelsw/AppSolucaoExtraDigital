@@ -2,7 +2,7 @@ unit EmpresaController;
 
 interface
 
-  uses UEmpresaModel,System.Generics.Collections;
+  uses UEmpresaModel,System.Generics.Collections, Data.DB, System.SysUtils, Vcl.Dialogs;
 
  Type
   TEmpresaController = class
@@ -11,7 +11,7 @@ interface
 
   public
     function insert(novaEmpresa: TEmpresa): boolean;
-    function update(obj : TEmpresa):boolean;
+    function update(AtualizacaoEmpresa: TEmpresa): boolean;
     function delete(idEmpresa : Integer): boolean;
     function selectById():TEmpresa;
     function getAll():TList<TEmpresa>;
@@ -28,7 +28,15 @@ uses
 
 function TEmpresaController.delete(idEmpresa : Integer): boolean;
 begin
- //
+  try
+    result := false;
+    udmEmpresa.QryDelete.Params.Parambyname('IDEMPRESA').AsInteger := idEmpresa;
+    udmEmpresa.QryDelete.execSql;
+
+    result := true;
+  except
+    raise;
+  end;
 end;
 
 function TEmpresaController.getAll: TList<TEmpresa>;
@@ -46,20 +54,20 @@ begin
   begin
     with udmEmpresa.QrySelect do
     begin
-      iEmp := TEmpresa.Create;
-      iEmp.setIdEmp( Fieldbyname('IDEMPRESA').AsInteger);
-      iEmp.SetCNPJ( Fieldbyname('NUCNPJ').AsString);
-      iEmp.SetNEmpresa( Fieldbyname('NMEMPRESA').AsString);
-      iEmp.SetInscricao( Fieldbyname('NUINSCRICAO').AsString);
-      iEmp.SetAtivo( Fieldbyname('STATIVO').AsString);
-      iEmp.SetDataCadastro( Fieldbyname('DTCADASTRO').AsDateTime);
-      iEmp.SetTelComercial( Fieldbyname('TLCOMERCIAL').AsString);
-      iEmp.SetTelCelular( Fieldbyname('TLCELULAR').AsString);
-      iEmp.SetTxObs( Fieldbyname('TXOBS').AsInteger);
-      iEmp.SetEmail( Fieldbyname('TXEMAIL').AsString);
-      iEmp.SetExluido( Fieldbyname('STEXCLUIDO').AsString);
-      iEmp.SetDataExclusao( Fieldbyname('DTEXCLUIDO').AsDateTime);
-      iEmp.SetDataAbertura( Fieldbyname('DTABERTURA').AsDateTime);
+      iEmp              := TEmpresa.Create;
+      iEmp.IdEmp        := Fieldbyname('IDEMPRESA').AsInteger;
+      iEmp.CNPJ         := Fieldbyname('NUCNPJ').AsString;
+      iEmp.NEmpresa     := Fieldbyname('NMEMPRESA').AsString;
+      iEmp.Inscricao    := Fieldbyname('NUINSCRICAO').AsString;
+      iEmp.Ativo        := Fieldbyname('STATIVO').AsString;
+      iEmp.DataCadastro := Fieldbyname('DTCADASTRO').AsDateTime;
+      iEmp.TelComercial := Fieldbyname('TLCOMERCIAL').AsString;
+      iEmp.TelCelular   := Fieldbyname('TLCELULAR').AsString;
+      iEmp.TxObs        := Fieldbyname('TXOBS').AsInteger;
+      iEmp.Email        := Fieldbyname('TXEMAIL').AsString;
+      iEmp.Exluido      := Fieldbyname('STEXCLUIDO').AsString;
+      iEmp.DataExclusao := Fieldbyname('DTEXCLUIDO').AsDateTime;
+      iEmp.DataAbertura := Fieldbyname('DTABERTURA').AsDateTime;
 
       result.add(iEmp);
     end;
@@ -72,23 +80,30 @@ end;
 function TEmpresaController.insert(novaEmpresa: TEmpresa): boolean;
 begin
   try
-    with udmEmpresa.QryInsert do
-    begin
-      Params.Parambyname('NUCNPJ').AsString       := novaEmpresa.GetCNPJ;
-      Params.Parambyname('NMEMPRESA').AsString    := novaEmpresa.GetNEmpresa;
-      Params.Parambyname('NUINSCRICAO').AsString  := novaEmpresa.GetInscricao;
-      Params.Parambyname('STATIVO').AsString      := novaEmpresa.GetAtivo;
-      Params.Parambyname('DTCADASTRO').AsDateTime := novaEmpresa.GetDataCadastro;
-      Params.Parambyname('TLCOMERCIAL').AsString  := novaEmpresa.GetTelComercial;
-      Params.Parambyname('TLCELULAR').AsString    := novaEmpresa.GetTelCelular;
-      Params.Parambyname('TXOBS').AsInteger       := novaEmpresa.GetTxObs;
-      Params.Parambyname('TXEMAIL').AsString      := novaEmpresa.GetEmail;
-      Params.Parambyname('DTABERTURA').AsDatetime := novaEmpresa.GetDataAbertura;
+    result := false;
 
-      execsql;
+    try
+      with udmEmpresa.QryInsert do
+      begin
+        Params.Parambyname('NMEMPRESA').AsString    := novaEmpresa.GetNEmpresa;
+        Params.Parambyname('NUCNPJ').AsString       := novaEmpresa.GetCNPJ;
+        Params.Parambyname('NUINSCRICAO').AsString  := novaEmpresa.GetInscricao;
+        Params.Parambyname('STATIVO').AsString      := novaEmpresa.GetAtivo;
+        Params.Parambyname('DTCADASTRO').AsDateTime := novaEmpresa.GetDataCadastro;
+        Params.Parambyname('DTABERTURA').AsDatetime := novaEmpresa.GetDataAbertura;
+        Params.Parambyname('TLCOMERCIAL').AsString  := novaEmpresa.GetTelComercial;
+        Params.Parambyname('TLCELULAR').AsString    := novaEmpresa.GetTelCelular;
+        Params.Parambyname('TXOBS').AsInteger       := novaEmpresa.GetTxObs;
+        Params.Parambyname('TXEMAIL').AsString      := novaEmpresa.GetEmail;
+
+        execsql;
+      end;
+
+      result := true;
+    except
+      raise;
     end;
-  except
-    raise;
+  finally
   end;
 end;
 
@@ -102,9 +117,31 @@ begin
  //
 end;
 
-function TEmpresaController.update(obj: TEmpresa): boolean;
+function TEmpresaController.update(AtualizacaoEmpresa: TEmpresa): boolean;
 begin
- //
+  try
+    result := false;
+
+    with udmEmpresa.QryUpdate do
+    begin
+      Params.Parambyname('NMEMPRESA').AsString    := AtualizacaoEmpresa.NEmpresa;
+      Params.Parambyname('IDEMPRESA').AsInteger   := AtualizacaoEmpresa.IdEmp;
+      Params.Parambyname('NUCNPJ').AsString       := AtualizacaoEmpresa.CNPJ;
+      Params.Parambyname('NUINSCRICAO').AsString  := AtualizacaoEmpresa.Inscricao;
+      Params.Parambyname('STATIVO').AsString      := AtualizacaoEmpresa.Ativo;
+      Params.Parambyname('DTABERTURA').AsDateTime := AtualizacaoEmpresa.DataAbertura;
+      Params.Parambyname('TLCOMERCIAL').AsString  := AtualizacaoEmpresa.TelComercial;
+      Params.Parambyname('TLCELULAR').AsString    := AtualizacaoEmpresa.TelCelular;
+      Params.Parambyname('TXOBS').asInteger       := AtualizacaoEmpresa.TxObs;
+      Params.Parambyname('TXEMAIL').AsString      := AtualizacaoEmpresa.Email;
+
+      execsql;
+    end;
+
+    result := true;
+  except
+    raise;
+  end;
 end;
 
 end.

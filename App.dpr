@@ -8,7 +8,10 @@ uses
   EmpresaController in 'Controller\EmpresaController.pas',
   dmEmpresa in 'Data\dmEmpresa.pas' {UdmEmpresa: TDataModule},
   UAppController in 'Controller\UAppController.pas',
-  UConfig in 'View\UConfig.pas' {FrmConfig};
+  UConfig in 'View\UConfig.pas' {FrmConfig},
+  dmEndereco in 'Data\dmEndereco.pas' {UdmEndereco: TDataModule},
+  EnderecoController in 'Controller\EnderecoController.pas',
+  UEnderecoModel in 'Data\model\UEnderecoModel.pas';
 
 {$R *.res}
 
@@ -18,7 +21,7 @@ begin
   Application.CreateForm(TUdmConexao, UdmConexao);
   Application.CreateForm(TUdmEmpresa, UdmEmpresa);
   Application.CreateForm(TForm1, Form1);
-
   Application.CreateForm(TFrmConfig, FrmConfig);
+  Application.CreateForm(TUdmEndereco, UdmEndereco);
   Application.Run;
 end.

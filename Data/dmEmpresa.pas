@@ -9,6 +9,8 @@ type
   TUdmEmpresa = class(TDataModule)
     QryInsert: TSQLQuery;
     QrySelect: TSQLQuery;
+    QryDelete: TSQLQuery;
+    QryUpdate: TSQLQuery;
   private
     { Private declarations }
   public

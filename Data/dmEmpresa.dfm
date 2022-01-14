@@ -4,18 +4,66 @@ object UdmEmpresa: TUdmEmpresa
   Width = 298
   object QryInsert: TSQLQuery
     MaxBlobSize = -1
-    Params = <>
+    ParamCheck = False
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'NMEMPRESA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUCNPJ'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUINSCRICAO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'STATIVO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DTCADASTRO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DTABERTURA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TLCOMERCIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TLCELULAR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TXOBS'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TXEMAIL'
+        ParamType = ptInput
+      end>
     SQL.Strings = (
       
         'insert into CADEMPRESA ( NMEMPRESA, NUCNPJ, NUINSCRICAO, STATIVO' +
-        ', DTCADASTRO, DTABERTURA, TLCOMERCIAL,'
+        ', DTCADASTRO, DTABERTURA, TLCOMERCIAL,TLCELULAR,TXOBS, TXEMAIL)'
       
-        '                        TLCELULAR, TXOBS, TXEMAIL, STEXCLUIDO, D' +
-        'TEXCLUIDO)'
-      
-        'values ( :NMEMPRESA, :NUCNPJ, :NUINSCRICAO, :STATIVO, :DTCADASTR' +
-        'O, :DTABERTURA, :TLCOMERCIAL, :TLCELULAR,'
-      '        :TXOBS, :TXEMAIL, :STEXCLUIDO, :DTEXCLUIDO)  ')
+        'values ( :NMEMPRESA,:NUCNPJ, :NUINSCRICAO, :STATIVO, :DTCADASTRO' +
+        ', :DTABERTURA, :TLCOMERCIAL,:TLCELULAR,:TXOBS, :TXEMAIL)  ')
+    SQLConnection = UdmConexao.SqlConnection
     Left = 24
     Top = 16
   end
@@ -31,5 +79,89 @@ object UdmEmpresa: TUdmEmpresa
     SQLConnection = UdmConexao.SqlConnection
     Left = 87
     Top = 17
+  end
+  object QryDelete: TSQLQuery
+    MaxBlobSize = -1
+    ParamCheck = False
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'IDEMPRESA'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'delete from CADEMPRESA where (IDEMPRESA = :IDEMPRESA)   ')
+    SQLConnection = UdmConexao.SqlConnection
+    Left = 150
+    Top = 18
+  end
+  object QryUpdate: TSQLQuery
+    MaxBlobSize = -1
+    ParamCheck = False
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'NMEMPRESA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUCNPJ'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUINSCRICAO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'STATIVO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DTABERTURA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TLCOMERCIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TLCELULAR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TXOBS'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TXEMAIL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'IDEMPRESA'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'update CADEMPRESA set NMEMPRESA = :NMEMPRESA,'
+      '   NUCNPJ = :NUCNPJ,'
+      '   NUINSCRICAO = :NUINSCRICAO,'
+      '   STATIVO = :STATIVO,'
+      '   DTABERTURA = :DTABERTURA,'
+      '   TLCOMERCIAL = :TLCOMERCIAL,'
+      '   TLCELULAR = :TLCELULAR,'
+      '   TXOBS = :TXOBS,'
+      '   TXEMAIL = :TXEMAIL'
+      'where (IDEMPRESA = :IDEMPRESA)  ')
+    SQLConnection = UdmConexao.SqlConnection
+    Left = 214
+    Top = 18
   end
 end
