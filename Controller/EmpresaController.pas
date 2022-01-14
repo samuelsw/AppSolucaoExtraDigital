@@ -74,16 +74,17 @@ begin
   try
     with udmEmpresa.QryInsert do
     begin
-      Parambyname('NUCNPJ').AsString       := novaEmpresa.GetCNPJ;
-      Parambyname('NMEMPRESA').AsString    := novaEmpresa.GetNEmpresa;
-      Parambyname('NUINSCRICAO').AsString  := novaEmpresa.GetInscricao;
-      Parambyname('STATIVO').AsString      := novaEmpresa.GetAtivo;
-      Parambyname('DTCADASTRO').AsDateTime := novaEmpresa.GetDataCadastro;
-      Parambyname('TLCOMERCIAL').AsString  := novaEmpresa.GetTelComercial;
-      Parambyname('TLCELULAR').AsString    := novaEmpresa.GetTelCelular;
-      Parambyname('TXOBS').AsInteger       := novaEmpresa.GetTxObs;
-      Parambyname('TXEMAIL').AsString      := novaEmpresa.GetEmail;
-      Parambyname('DTABERTURA').AsDatetime := novaEmpresa.GetDataAbertura;
+      Params.Parambyname('NUCNPJ').AsString       := novaEmpresa.GetCNPJ;
+      Params.Parambyname('NMEMPRESA').AsString    := novaEmpresa.GetNEmpresa;
+      Params.Parambyname('NUINSCRICAO').AsString  := novaEmpresa.GetInscricao;
+      Params.Parambyname('STATIVO').AsString      := novaEmpresa.GetAtivo;
+      Params.Parambyname('DTCADASTRO').AsDateTime := novaEmpresa.GetDataCadastro;
+      Params.Parambyname('TLCOMERCIAL').AsString  := novaEmpresa.GetTelComercial;
+      Params.Parambyname('TLCELULAR').AsString    := novaEmpresa.GetTelCelular;
+      Params.Parambyname('TXOBS').AsInteger       := novaEmpresa.GetTxObs;
+      Params.Parambyname('TXEMAIL').AsString      := novaEmpresa.GetEmail;
+      Params.Parambyname('DTABERTURA').AsDatetime := novaEmpresa.GetDataAbertura;
+
       execsql;
     end;
   except

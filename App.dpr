@@ -15,9 +15,10 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TUdmConexao, UdmConexao);
   Application.CreateForm(TUdmEmpresa, UdmEmpresa);
+  Application.CreateForm(TForm1, Form1);
+
   Application.CreateForm(TFrmConfig, FrmConfig);
   Application.Run;
 end.

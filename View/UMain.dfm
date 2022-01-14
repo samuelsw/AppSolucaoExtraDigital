@@ -88,7 +88,7 @@ object Form1: TForm1
         Top = 1
         Width = 788
         Height = 447
-        ActivePage = TabEmpresas
+        ActivePage = tabCadEmpresa
         Align = alClient
         TabOrder = 0
         object TabEmpresas: TTabSheet

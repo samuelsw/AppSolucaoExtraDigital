@@ -175,7 +175,7 @@ begin
 
 
   try
-    if DataEmpresa.delete() then
+    if DataEmpresa.delete(datasetEmpresa.Fieldbyname('IDEMPRESA').AsInteger) then
     begin
       showmessage('Empresa Excluida');
     end;
