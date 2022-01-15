@@ -125,6 +125,8 @@
         </DCCReference>
         <DCCReference Include="Controller\EnderecoController.pas"/>
         <DCCReference Include="Data\model\UEnderecoModel.pas"/>
+        <DCCReference Include="Data\model\UFuncionarioModel.pas"/>
+        <DCCReference Include="Controller\FuncionarioController.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

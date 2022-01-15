@@ -11,7 +11,9 @@ uses
   UConfig in 'View\UConfig.pas' {FrmConfig},
   dmEndereco in 'Data\dmEndereco.pas' {UdmEndereco: TDataModule},
   EnderecoController in 'Controller\EnderecoController.pas',
-  UEnderecoModel in 'Data\model\UEnderecoModel.pas';
+  UEnderecoModel in 'Data\model\UEnderecoModel.pas',
+  UFuncionarioModel in 'Data\model\UFuncionarioModel.pas',
+  FuncionarioController in 'Controller\FuncionarioController.pas';
 
 {$R *.res}
 

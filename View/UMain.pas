@@ -103,6 +103,7 @@ type
     Button5: TButton;
     edtCod: TEdit;
     Label17: TLabel;
+    TabCadFuncionario: TTabSheet;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -397,6 +398,7 @@ begin
 
     tpCadastroFuncionarios:
     begin
+      PageControl1.ActivePage    := TabCadFuncionario;
       PnlTop.Caption             := 'Cadastro de funcionários';
       btnPesquisaEmpresa.Enabled := true;
       btnCadastraEmpresa.Enabled := true;

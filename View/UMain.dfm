@@ -123,6 +123,7 @@ object Form1: TForm1
             Height = 228
             DataSource = dsEmpresa
             PopupMenu = PopupMenu1
+            ReadOnly = True
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
@@ -186,6 +187,7 @@ object Form1: TForm1
             Width = 774
             Height = 98
             PopupMenu = PopupMenu1
+            ReadOnly = True
             TabOrder = 2
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
@@ -431,6 +433,7 @@ object Form1: TForm1
               Height = 129
               DataSource = dsEnderecos
               PopupMenu = PopupMenu1
+              ReadOnly = True
               TabOrder = 1
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWindowText
@@ -510,6 +513,10 @@ object Form1: TForm1
               TabOrder = 8
             end
           end
+        end
+        object TabCadFuncionario: TTabSheet
+          Caption = 'TabCadFuncionario'
+          ImageIndex = 2
         end
       end
     end
