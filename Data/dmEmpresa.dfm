@@ -98,68 +98,7 @@ object UdmEmpresa: TUdmEmpresa
   object QryUpdate: TSQLQuery
     MaxBlobSize = -1
     ParamCheck = False
-    Params = <
-      item
-        DataType = ftUnknown
-        Name = 'NMEMPRESA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'NUCNPJ'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'NUINSCRICAO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'STATIVO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'DTABERTURA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'TLCOMERCIAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'TLCELULAR'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'TXOBS'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'TXEMAIL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftUnknown
-        Name = 'IDEMPRESA'
-        ParamType = ptInput
-      end>
-    SQL.Strings = (
-      'update CADEMPRESA set NMEMPRESA = :NMEMPRESA,'
-      '   NUCNPJ = :NUCNPJ,'
-      '   NUINSCRICAO = :NUINSCRICAO,'
-      '   STATIVO = :STATIVO,'
-      '   DTABERTURA = :DTABERTURA,'
-      '   TLCOMERCIAL = :TLCOMERCIAL,'
-      '   TLCELULAR = :TLCELULAR,'
-      '   TXOBS = :TXOBS,'
-      '   TXEMAIL = :TXEMAIL'
-      'where (IDEMPRESA = :IDEMPRESA)  ')
+    Params = <>
     SQLConnection = UdmConexao.SqlConnection
     Left = 214
     Top = 18

@@ -33,10 +33,14 @@ var sCaminhoBD : String;
 begin
   AppController := TAppConnection.new(SqlConnection);
 
-  if not AppController.ConectDB then
-  begin
-    showmessage('Não foi possível conectar ao banco de dados');
-    AppController.OpenConfig();
+  try
+    if not AppController.ConectDB then
+    begin
+      showmessage('Não foi possível conectar ao banco de dados');
+      AppController.OpenConfig();
+    end;
+  finally
+    AppController.free;
   end;
 
 end;

@@ -4,6 +4,8 @@ interface
 
 type
   TFuncionario = class
+
+    private
     FIDFUNCIONARIO         : INTEGER;
     FIDEMPRESA             : INTEGER;
     FNMFUNCIONARIO         : String;
@@ -33,8 +35,6 @@ type
     FNUCEP                 : String;
     FSTEXCLUIDO            : String;
     FDTEXCLUIDO            : TDateTime;
-
-    private
 
     {$REGION 'get/set'}
     function GetDtCadastro: TDateTime;

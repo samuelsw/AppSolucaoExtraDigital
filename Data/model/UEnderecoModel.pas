@@ -4,6 +4,9 @@ interface
 
 type
   TEndereco = class
+
+
+    private
     FIDENDERECO : Integer;
     FIDTITULAR  : Integer;
     FIDEMPRESA  : Integer;
@@ -18,8 +21,6 @@ type
     FDTEXCLUIDO : TDateTime;
     FTPCADASTRO : String;
 
-    private
-
     {$REGION 'GET/SET'}
       function GetDtExcluido: TDateTime;
       function GetIdEndereco: Integer;
@@ -33,6 +34,7 @@ type
       function GetSTAtivo: String;
       function GetSTExcluido: String;
       function GetTpCadastro: String;
+      function getIdUf: Integer;
 
       procedure SetDtExcluido(const Value: TDateTime);
       procedure SetIdEndereco(const Value: Integer);
@@ -46,8 +48,7 @@ type
       procedure SetSTAtivo(const Value: String);
       procedure SetSTExcluido(const Value: String);
       procedure SetTpCadastro(const Value: String);
-    function getIdUf: Integer;
-    procedure SetIdUf(const Value: Integer);
+      procedure SetIdUf(const Value: Integer);
     {$ENDREGION}
 
     public

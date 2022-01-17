@@ -20,9 +20,6 @@ type
     FExluido      : string;
     FDataExclusao : TDateTime;
 
-  public
-     { public declarations }
-
     {$REGION 'get/set'}
     function GetIdEmp        :Integer;
     function GetNEmpresa     :string;
@@ -53,6 +50,11 @@ type
     procedure SetTelComercial(const Value: string);
     procedure SetDataAbertura(const Value: TDateTime);
     {$ENDREGION}
+
+  public
+     { public declarations }
+
+
 
     property IdEmp        :Integer read GetIdEmp write setIdEmp;
     property NEmpresa     : string read GetNEmpresa write setNEmpresa;

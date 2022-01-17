@@ -2,7 +2,7 @@ unit EmpresaController;
 
 interface
 
-  uses UEmpresaModel,System.Generics.Collections, Data.DB, System.SysUtils, Vcl.Dialogs;
+  uses UEmpresaModel,System.Generics.Collections, Data.DB, System.SysUtils, Vcl.Dialogs, System.Classes;
 
  Type
   TEmpresaController = class
@@ -85,16 +85,16 @@ begin
     try
       with udmEmpresa.QryInsert do
       begin
-        Params.Parambyname('NMEMPRESA').AsString    := novaEmpresa.GetNEmpresa;
-        Params.Parambyname('NUCNPJ').AsString       := novaEmpresa.GetCNPJ;
-        Params.Parambyname('NUINSCRICAO').AsString  := novaEmpresa.GetInscricao;
-        Params.Parambyname('STATIVO').AsString      := novaEmpresa.GetAtivo;
-        Params.Parambyname('DTCADASTRO').AsDateTime := novaEmpresa.GetDataCadastro;
-        Params.Parambyname('DTABERTURA').AsDatetime := novaEmpresa.GetDataAbertura;
-        Params.Parambyname('TLCOMERCIAL').AsString  := novaEmpresa.GetTelComercial;
-        Params.Parambyname('TLCELULAR').AsString    := novaEmpresa.GetTelCelular;
-        Params.Parambyname('TXOBS').AsInteger       := novaEmpresa.GetTxObs;
-        Params.Parambyname('TXEMAIL').AsString      := novaEmpresa.GetEmail;
+        Params.Parambyname('NMEMPRESA').AsString    := novaEmpresa.NEmpresa;
+        Params.Parambyname('NUCNPJ').AsString       := novaEmpresa.CNPJ;
+        Params.Parambyname('NUINSCRICAO').AsString  := novaEmpresa.Inscricao;
+        Params.Parambyname('STATIVO').AsString      := novaEmpresa.Ativo;
+        Params.Parambyname('DTCADASTRO').AsDateTime := novaEmpresa.DataCadastro;
+        Params.Parambyname('DTABERTURA').AsDatetime := novaEmpresa.DataAbertura;
+        Params.Parambyname('TLCOMERCIAL').AsString  := novaEmpresa.TelComercial;
+        Params.Parambyname('TLCELULAR').AsString    := novaEmpresa.TelCelular;
+        Params.Parambyname('TXOBS').AsInteger       := novaEmpresa.TxObs;
+        Params.Parambyname('TXEMAIL').AsString      := novaEmpresa.Email;
 
         execsql;
       end;
@@ -118,29 +118,112 @@ begin
 end;
 
 function TEmpresaController.update(AtualizacaoEmpresa: TEmpresa): boolean;
+var sqlUpdate : TStrings;
 begin
   try
-    result := false;
+    try
+      result    := false;
+      sqlUpdate := TStringList.create;
+      udmEmpresa.QryUpdate.sql.clear;
+      udmEmpresa.QryUpdate.sql.Text := '';
 
-    with udmEmpresa.QryUpdate do
-    begin
-      Params.Parambyname('NMEMPRESA').AsString    := AtualizacaoEmpresa.NEmpresa;
-      Params.Parambyname('IDEMPRESA').AsInteger   := AtualizacaoEmpresa.IdEmp;
-      Params.Parambyname('NUCNPJ').AsString       := AtualizacaoEmpresa.CNPJ;
-      Params.Parambyname('NUINSCRICAO').AsString  := AtualizacaoEmpresa.Inscricao;
-      Params.Parambyname('STATIVO').AsString      := AtualizacaoEmpresa.Ativo;
-      Params.Parambyname('DTABERTURA').AsDateTime := AtualizacaoEmpresa.DataAbertura;
-      Params.Parambyname('TLCOMERCIAL').AsString  := AtualizacaoEmpresa.TelComercial;
-      Params.Parambyname('TLCELULAR').AsString    := AtualizacaoEmpresa.TelCelular;
-      Params.Parambyname('TXOBS').asInteger       := AtualizacaoEmpresa.TxObs;
-      Params.Parambyname('TXEMAIL').AsString      := AtualizacaoEmpresa.Email;
+      sqlUpdate.add('update CADEMPRESA set');
 
-      execsql;
+      with udmEmpresa.QryUpdate do
+      begin
+        if AtualizacaoEmpresa.NEmpresa <> '' then
+        begin
+          sqlUpdate.add(' NMEMPRESA =:NMEMPRESA, ');
+          Params.CreateParam(ftstring, 'NMEMPRESA', ptInput);
+          Params.Parambyname('NMEMPRESA').AsString    := AtualizacaoEmpresa.NEmpresa;
+        end;
+
+        if AtualizacaoEmpresa.CNPJ <> '' then
+        begin
+          sqlUpdate.add(' NUCNPJ =:NUCNPJ, ');
+          Params.CreateParam(ftstring, 'NUCNPJ', ptInput);
+          Params.Parambyname('NUCNPJ').AsString       := AtualizacaoEmpresa.CNPJ;
+        end;
+
+        if AtualizacaoEmpresa.Inscricao <> '' then
+        begin
+          sqlUpdate.add('NUINSCRICAO =:NUINSCRICAO, ');
+          Params.CreateParam(ftstring, 'NUINSCRICAO', ptInput);
+          Params.Parambyname('NUINSCRICAO').AsString  := AtualizacaoEmpresa.Inscricao;
+        end;
+
+        if AtualizacaoEmpresa.Ativo <> '' then
+        begin
+          sqlUpdate.add('STATIVO =:STATIVO, ');
+          Params.CreateParam(ftstring, 'STATIVO', ptInput);
+          Params.Parambyname('STATIVO').AsString      := AtualizacaoEmpresa.Ativo;
+        end;
+
+        if AtualizacaoEmpresa.DataAbertura > 0 then
+        begin
+          sqlUpdate.add('DTABERTURA =:DTABERTURA, ');
+          Params.CreateParam(ftDateTime, 'DTABERTURA', ptInput);
+          Params.Parambyname('DTABERTURA').AsDateTime := AtualizacaoEmpresa.DataAbertura;
+        end;
+
+        if AtualizacaoEmpresa.TelComercial <> '' then
+        begin
+          sqlUpdate.add('TLCOMERCIAL =:TLCOMERCIAL, ');
+          Params.CreateParam(ftstring, 'TLCOMERCIAL', ptInput);
+          Params.Parambyname('TLCOMERCIAL').AsString  := AtualizacaoEmpresa.TelComercial;
+        end;
+
+        if AtualizacaoEmpresa.TelCelular <> '' then
+        begin
+          sqlUpdate.add('TLCELULAR =:TLCELULAR, ');
+          Params.CreateParam(ftstring, 'TLCELULAR', ptInput);
+          Params.Parambyname('TLCELULAR').AsString    := AtualizacaoEmpresa.TelCelular;
+        end;
+
+        if AtualizacaoEmpresa.TxObs >= 0 then
+        begin
+          sqlUpdate.add('TXOBS =:TXOBS, ');
+          Params.CreateParam(ftInteger, 'TXOBS', ptInput);
+          Params.Parambyname('TXOBS').asInteger       := AtualizacaoEmpresa.TxObs;
+        end;
+
+        if AtualizacaoEmpresa.Email <> '' then
+        begin
+          sqlUpdate.add('TXEMAIL =:TXEMAIL, ');
+          Params.CreateParam(ftstring, 'TXEMAIL', ptInput);
+          Params.Parambyname('TXEMAIL').AsString      := AtualizacaoEmpresa.Email;
+        end;
+
+        if AtualizacaoEmpresa.Exluido <> '' then
+        begin
+          sqlUpdate.add('STEXCLUIDO =:STEXCLUIDO, ');
+          Params.CreateParam(ftstring, 'STEXCLUIDO', ptInput);
+          Params.Parambyname('STEXCLUIDO').AsString   := AtualizacaoEmpresa.Exluido;
+        end;
+
+        if AtualizacaoEmpresa.DataExclusao > 0 then
+        begin
+          sqlUpdate.add('DTEXCLUIDO =:DTEXCLUIDO, ');
+          Params.CreateParam(ftDateTime, 'DTEXCLUIDO', ptInput);
+          Params.Parambyname('DTEXCLUIDO').asDateTime := AtualizacaoEmpresa.DataExclusao;
+        end;
+
+        sql.add(copy(sqlUpdate.text,0,Length(sqlUpdate.text)-4));
+        sql.add(' where IDEMPRESA =:IDEMPRESA');
+
+        Params.CreateParam(ftInteger, 'IDEMPRESA', ptInput);
+        Params.Parambyname('IDEMPRESA').AsInteger := AtualizacaoEmpresa.IdEmp;
+
+        execsql;
+      end;
+
+
+      result := true;
+    except
+      raise;
     end;
-
-    result := true;
-  except
-    raise;
+  finally
+    sqlUpdate.free;
   end;
 end;
 

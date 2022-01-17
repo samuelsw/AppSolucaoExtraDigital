@@ -12,6 +12,7 @@ uses
 
   public
     function selectByIdEmpresa(idEmpresa : Integer): TList<TEndereco>;
+    function insert(novoEndereco: TEndereco): boolean;
     class function new():TEnderecoController;
  end;
 
@@ -22,6 +23,26 @@ uses
 
 
 { TEnderecoController }
+
+function TEnderecoController.insert(novoEndereco: TEndereco): boolean;
+begin
+  with UdmEndereco.QryInsert do
+  begin
+    Params.Parambyname('IDTITULAR').AsInteger   := novoEndereco.IDTITULAR;
+    Params.Parambyname('IDEMPRESA').AsInteger   := novoEndereco.IDEMPRESA;
+    Params.Parambyname('NMENDERECO').AsString   := novoEndereco.NMENDERECO;
+    Params.Parambyname('NUENDERECO').AsString   := novoEndereco.NUENDERECO;
+    Params.Parambyname('NMBAIRRO').AsString     := novoEndereco.NMBAIRRO;
+    Params.Parambyname('IDCIDADE').AsInteger    := novoEndereco.IDCIDADE;
+    Params.Parambyname('IDUF').AsInteger        := novoEndereco.IDUF;
+    Params.Parambyname('NUCEP').AsString        := novoEndereco.NUCEP;
+    Params.Parambyname('STATIVO').AsString      := novoEndereco.STATIVO;
+    Params.Parambyname('STEXCLUIDO').AsString   := novoEndereco.STEXCLUIDO;
+    Params.Parambyname('DTEXCLUIDO').AsDateTime := novoEndereco.DTEXCLUIDO;
+    Params.Parambyname('TPCADASTRO').AsString   := novoEndereco.TPCADASTRO;
+    execsql;
+  end;
+end;
 
 class function TEnderecoController.new: TEnderecoController;
 begin

@@ -1,13 +1,12 @@
-unit dmEndereco;
+unit dmFuncionario;
 
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr,dmConexao;
+  System.SysUtils, System.Classes, Data.FMTBcd, Data.DB, Data.SqlExpr;
 
 type
-  TUdmEndereco = class(TDataModule)
-    QrySelect: TSQLQuery;
+  TUdmFuncionario = class(TDataModule)
     QryInsert: TSQLQuery;
   private
     { Private declarations }
@@ -16,10 +15,12 @@ type
   end;
 
 var
-  UdmEndereco: TUdmEndereco;
+  UdmFuncionario: TUdmFuncionario;
 
 implementation
 
+uses
+  dmConexao;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 

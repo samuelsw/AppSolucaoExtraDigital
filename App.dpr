@@ -13,11 +13,15 @@ uses
   EnderecoController in 'Controller\EnderecoController.pas',
   UEnderecoModel in 'Data\model\UEnderecoModel.pas',
   UFuncionarioModel in 'Data\model\UFuncionarioModel.pas',
-  FuncionarioController in 'Controller\FuncionarioController.pas';
+  FuncionarioController in 'Controller\FuncionarioController.pas',
+  dmFuncionario in 'Data\dmFuncionario.pas' {UdmFuncionario: TDataModule};
 
 {$R *.res}
 
 begin
+
+  system.ReportMemoryLeaksOnShutdown := True;
+
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TUdmConexao, UdmConexao);
@@ -25,5 +29,6 @@ begin
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TFrmConfig, FrmConfig);
   Application.CreateForm(TUdmEndereco, UdmEndereco);
+  Application.CreateForm(TUdmFuncionario, UdmFuncionario);
   Application.Run;
 end.

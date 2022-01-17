@@ -13,10 +13,24 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object Label26: TLabel
+    Left = 165
+    Top = 146
+    Width = 41
+    Height = 13
+    Caption = 'Celular'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+  end
   object Panel2: TPanel
     Left = 0
     Top = 500
@@ -24,24 +38,10 @@ object Form1: TForm1
     Height = 56
     Align = alBottom
     TabOrder = 0
-    object Label9: TLabel
-      Left = 563
-      Top = 13
-      Width = 164
-      Height = 28
-      Caption = 'Clique com bot'#227'o direito para excluir ou alterar empresas.'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      WordWrap = True
-    end
     object btnPesquisaEmpresa: TButton
-      Left = 30
+      Left = 15
       Top = 6
-      Width = 139
+      Width = 125
       Height = 43
       Caption = 'Pesquisar Empresas'
       Enabled = False
@@ -49,22 +49,43 @@ object Form1: TForm1
       OnClick = btnPesquisaEmpresaClick
     end
     object btnCadastraEmpresa: TButton
-      Left = 190
+      Left = 149
       Top = 6
-      Width = 139
+      Width = 125
       Height = 43
       Caption = 'Cadastrar Empresas'
       TabOrder = 1
       OnClick = btnCadastraEmpresaClick
     end
     object btnCadastraFunc: TButton
-      Left = 352
+      Left = 551
       Top = 6
-      Width = 139
+      Width = 125
       Height = 43
       Caption = 'Cadastrar Funcion'#225'rios'
+      Enabled = False
       TabOrder = 2
       OnClick = btnCadastraFuncClick
+    end
+    object BtnEditaEmpresa: TButton
+      Left = 283
+      Top = 6
+      Width = 125
+      Height = 43
+      Caption = 'Editar Empresa'
+      Enabled = False
+      TabOrder = 3
+      OnClick = BtnEditaEmpresaClick
+    end
+    object btnExcluiEmpresa: TButton
+      Left = 417
+      Top = 6
+      Width = 125
+      Height = 43
+      Caption = 'Excluir Empresa'
+      Enabled = False
+      TabOrder = 4
+      OnClick = btnExcluiEmpresaClick
     end
   end
   object Panel3: TPanel
@@ -122,7 +143,7 @@ object Form1: TForm1
             Width = 774
             Height = 228
             DataSource = dsEmpresa
-            PopupMenu = PopupMenu1
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
             ReadOnly = True
             TabOrder = 0
             TitleFont.Charset = DEFAULT_CHARSET
@@ -130,6 +151,7 @@ object Form1: TForm1
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
+            OnCellClick = DBGrid2CellClick
           end
           object GroupBox1: TGroupBox
             Left = 3
@@ -138,7 +160,7 @@ object Form1: TForm1
             Height = 57
             TabOrder = 1
             object Label1: TLabel
-              Left = 21
+              Left = 6
               Top = 7
               Width = 27
               Height = 13
@@ -152,9 +174,9 @@ object Form1: TForm1
               Caption = 'Tipos de Filtro'
             end
             object edtFiltro: TEdit
-              Left = 21
+              Left = 6
               Top = 21
-              Width = 390
+              Width = 407
               Height = 21
               TabOrder = 0
             end
@@ -186,7 +208,6 @@ object Form1: TForm1
             Top = 316
             Width = 774
             Height = 98
-            PopupMenu = PopupMenu1
             ReadOnly = True
             TabOrder = 2
             TitleFont.Charset = DEFAULT_CHARSET
@@ -206,7 +227,7 @@ object Form1: TForm1
             Height = 145
             TabOrder = 0
             object lblRazao: TLabel
-              Left = 18
+              Left = 14
               Top = 19
               Width = 60
               Height = 13
@@ -368,71 +389,72 @@ object Form1: TForm1
             Left = 3
             Top = 151
             Width = 774
-            Height = 220
+            Height = 265
+            Caption = 'Endere'#231'os'
             TabOrder = 1
             object Label10: TLabel
               Left = 14
-              Top = 5
+              Top = 23
               Width = 55
               Height = 13
               Caption = 'Logradouro'
             end
             object Label11: TLabel
               Left = 477
-              Top = 5
+              Top = 23
               Width = 28
               Height = 13
               Caption = 'Bairro'
             end
             object Label12: TLabel
               Left = 689
-              Top = 5
+              Top = 23
               Width = 37
               Height = 13
               Caption = 'Numero'
             end
             object Label13: TLabel
               Left = 14
-              Top = 45
+              Top = 68
               Width = 19
               Height = 13
               Caption = 'CEP'
             end
             object Label14: TLabel
               Left = 135
-              Top = 46
+              Top = 68
               Width = 13
               Height = 13
               Caption = 'UF'
             end
             object Label15: TLabel
               Left = 237
-              Top = 46
+              Top = 68
               Width = 33
               Height = 13
               Caption = 'Cidade'
             end
             object Label16: TLabel
               Left = 405
-              Top = 46
+              Top = 68
               Width = 25
               Height = 13
               Caption = 'Ativo'
             end
-            object Edit1: TEdit
+            object edtLogradouro: TEdit
               Left = 14
-              Top = 21
+              Top = 39
               Width = 449
               Height = 21
               TabOrder = 0
             end
             object DBGrid4: TDBGrid
-              Left = 0
-              Top = 88
-              Width = 774
+              Left = 2
+              Top = 134
+              Width = 770
               Height = 129
+              Align = alBottom
               DataSource = dsEnderecos
-              PopupMenu = PopupMenu1
               ReadOnly = True
               TabOrder = 1
               TitleFont.Charset = DEFAULT_CHARSET
@@ -441,30 +463,30 @@ object Form1: TForm1
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
             end
-            object Edit2: TEdit
+            object EdtBairro: TEdit
               Left = 477
-              Top = 21
+              Top = 39
               Width = 204
               Height = 21
               TabOrder = 2
             end
-            object Edit3: TEdit
+            object edtNum: TEdit
               Left = 689
-              Top = 21
+              Top = 39
               Width = 70
               Height = 21
               TabOrder = 3
             end
-            object Edit4: TEdit
+            object edtCep: TEdit
               Left = 14
-              Top = 61
+              Top = 84
               Width = 107
               Height = 21
               TabOrder = 4
             end
-            object ComboBox2: TComboBox
+            object cbUF: TComboBox
               Left = 135
-              Top = 61
+              Top = 83
               Width = 90
               Height = 21
               Style = csDropDownList
@@ -476,9 +498,9 @@ object Form1: TForm1
                 'S'
                 'N')
             end
-            object ComboBox3: TComboBox
+            object cbCidade: TComboBox
               Left = 237
-              Top = 61
+              Top = 83
               Width = 156
               Height = 21
               Style = csDropDownList
@@ -490,9 +512,9 @@ object Form1: TForm1
                 'S'
                 'N')
             end
-            object ComboBox4: TComboBox
+            object cbEnderecoAtivo: TComboBox
               Left = 405
-              Top = 61
+              Top = 83
               Width = 70
               Height = 21
               Style = csDropDownList
@@ -506,17 +528,466 @@ object Form1: TForm1
             end
             object Button2: TButton
               Left = 636
-              Top = 46
+              Top = 68
               Width = 123
               Height = 36
               Caption = 'Gravar Endere'#231'o'
               TabOrder = 8
+              OnClick = Button2Click
             end
           end
         end
         object TabCadFuncionario: TTabSheet
           Caption = 'TabCadFuncionario'
           ImageIndex = 2
+          object Label9: TLabel
+            Left = 8
+            Top = 48
+            Width = 41
+            Height = 13
+            Caption = 'Nome(*)'
+          end
+          object Label18: TLabel
+            Left = 8
+            Top = 8
+            Width = 85
+            Height = 13
+            Caption = 'Data Admiss'#227'o(*)'
+          end
+          object Label19: TLabel
+            Left = 118
+            Top = 8
+            Width = 71
+            Height = 13
+            Caption = 'Data Demiss'#227'o'
+          end
+          object Label20: TLabel
+            Left = 227
+            Top = 8
+            Width = 19
+            Height = 13
+            Caption = 'CPF'
+          end
+          object Label21: TLabel
+            Left = 407
+            Top = 8
+            Width = 14
+            Height = 13
+            Caption = 'RG'
+          end
+          object Label22: TLabel
+            Left = 537
+            Top = 8
+            Width = 96
+            Height = 13
+            Caption = 'Data de Nascimento'
+          end
+          object Label23: TLabel
+            Left = 8
+            Top = 93
+            Width = 24
+            Height = 13
+            Caption = 'Email'
+          end
+          object Label24: TLabel
+            Left = 310
+            Top = 93
+            Width = 99
+            Height = 13
+            Caption = 'Carteira de Trabalho'
+          end
+          object lblTitulo: TLabel
+            Left = 446
+            Top = 48
+            Width = 74
+            Height = 13
+            Caption = 'T'#237'tulo de eleitor'
+          end
+          object Label25: TLabel
+            Left = 592
+            Top = 48
+            Width = 102
+            Height = 13
+            Caption = 'Carteira de motorista'
+          end
+          object lbltipo: TLabel
+            Left = 8
+            Top = 138
+            Width = 85
+            Height = 13
+            Caption = 'Tipo de Categoria'
+          end
+          object lblVencimento: TLabel
+            Left = 612
+            Top = 93
+            Width = 97
+            Height = 13
+            Caption = 'Vencimento Carteira'
+          end
+          object Label35: TLabel
+            Left = 156
+            Top = 136
+            Width = 41
+            Height = 13
+            Caption = 'Celular'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = []
+            ParentFont = False
+          end
+          object edtContatoFunc: TLabel
+            Left = 394
+            Top = 138
+            Width = 65
+            Height = 13
+            Caption = 'Tel Contato'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label28: TLabel
+            Left = 275
+            Top = 138
+            Width = 84
+            Height = 13
+            Caption = 'Tel Residencial'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label29: TLabel
+            Left = 664
+            Top = 7
+            Width = 25
+            Height = 13
+            Caption = 'Ativo'
+          end
+          object Label30: TLabel
+            Left = 513
+            Top = 138
+            Width = 20
+            Height = 13
+            Caption = 'OBS'
+          end
+          object EdtNome: TEdit
+            Left = 8
+            Top = 64
+            Width = 432
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 0
+          end
+          object EdtCPF: TMaskEdit
+            Left = 227
+            Top = 24
+            Width = 174
+            Height = 21
+            Color = clHighlightText
+            EditMask = '999.999.999-99;1;_'
+            MaxLength = 14
+            TabOrder = 1
+            Text = '   .   .   -  '
+          end
+          object edtRG: TEdit
+            Left = 407
+            Top = 24
+            Width = 124
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 2
+          end
+          object EdtDateNasc: TDateTimePicker
+            Left = 537
+            Top = 24
+            Width = 105
+            Height = 21
+            Date = 43341.000000000000000000
+            Time = 0.397320844909700100
+            TabOrder = 3
+          end
+          object edtEmail: TEdit
+            Left = 8
+            Top = 109
+            Width = 291
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 4
+          end
+          object edtCarteiraTrab: TEdit
+            Left = 310
+            Top = 109
+            Width = 291
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 5
+          end
+          object edtTituloEleitor: TEdit
+            Left = 446
+            Top = 64
+            Width = 131
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 6
+          end
+          object edtCarteiraMotorista: TEdit
+            Left = 592
+            Top = 64
+            Width = 161
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 7
+          end
+          object edtTipoCategoria: TEdit
+            Left = 8
+            Top = 154
+            Width = 142
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 8
+          end
+          object edtDataVencCarteira: TDateTimePicker
+            Left = 612
+            Top = 109
+            Width = 141
+            Height = 21
+            Date = 43341.000000000000000000
+            Time = 0.397320844909700100
+            TabOrder = 9
+          end
+          object edtTelREsidencial: TEdit
+            Left = 275
+            Top = 154
+            Width = 113
+            Height = 21
+            CharCase = ecUpperCase
+            MaxLength = 14
+            TabOrder = 10
+          end
+          object edtCelular: TEdit
+            Left = 156
+            Top = 154
+            Width = 113
+            Height = 21
+            CharCase = ecUpperCase
+            MaxLength = 14
+            TabOrder = 11
+          end
+          object edtTElContato: TEdit
+            Left = 394
+            Top = 154
+            Width = 113
+            Height = 21
+            CharCase = ecUpperCase
+            MaxLength = 14
+            TabOrder = 12
+          end
+          object EdtDataAdm: TMaskEdit
+            Left = 8
+            Top = 24
+            Width = 103
+            Height = 21
+            EditMask = '99/99/9999;1;_'
+            MaxLength = 10
+            TabOrder = 13
+            Text = '  /  /    '
+          end
+          object edtDataDemissao: TMaskEdit
+            Left = 118
+            Top = 24
+            Width = 103
+            Height = 21
+            EditMask = '99/99/9999;1;_'
+            MaxLength = 10
+            TabOrder = 14
+            Text = '  /  /    '
+          end
+          object cbFuncAtivo: TComboBox
+            Left = 664
+            Top = 24
+            Width = 89
+            Height = 21
+            Style = csDropDownList
+            CharCase = ecUpperCase
+            ItemIndex = 0
+            TabOrder = 15
+            Text = 'S'
+            Items.Strings = (
+              'S'
+              'N')
+          end
+          object edtTxOBSFunc: TEdit
+            Left = 513
+            Top = 154
+            Width = 240
+            Height = 21
+            CharCase = ecUpperCase
+            Color = clHighlightText
+            MaxLength = 60
+            TabOrder = 16
+          end
+          object GroupBox4: TGroupBox
+            Left = 8
+            Top = 200
+            Width = 745
+            Height = 105
+            TabOrder = 17
+            object Label27: TLabel
+              Left = 17
+              Top = 12
+              Width = 53
+              Height = 13
+              Caption = 'Endereco'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Label31: TLabel
+              Left = 317
+              Top = 12
+              Width = 69
+              Height = 13
+              Caption = 'N. Endere'#231'o'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Label32: TLabel
+              Left = 395
+              Top = 12
+              Width = 35
+              Height = 13
+              Caption = 'Bairro'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Label33: TLabel
+              Left = 17
+              Top = 60
+              Width = 13
+              Height = 13
+              Caption = 'UF'
+            end
+            object Label34: TLabel
+              Left = 119
+              Top = 60
+              Width = 33
+              Height = 13
+              Caption = 'Cidade'
+            end
+            object Label36: TLabel
+              Left = 525
+              Top = 12
+              Width = 19
+              Height = 13
+              Caption = 'CEP'
+            end
+            object EdtEndrecoFunc: TEdit
+              Left = 17
+              Top = 29
+              Width = 291
+              Height = 21
+              CharCase = ecUpperCase
+              Color = clHighlightText
+              MaxLength = 60
+              TabOrder = 0
+            end
+            object edtNumEnderecoFunc: TEdit
+              Left = 317
+              Top = 29
+              Width = 69
+              Height = 21
+              CharCase = ecUpperCase
+              Color = clHighlightText
+              MaxLength = 60
+              TabOrder = 1
+            end
+            object edtBairroFunc: TEdit
+              Left = 395
+              Top = 29
+              Width = 124
+              Height = 21
+              CharCase = ecUpperCase
+              Color = clHighlightText
+              MaxLength = 60
+              TabOrder = 2
+            end
+            object cbUFFunc: TComboBox
+              Left = 17
+              Top = 74
+              Width = 90
+              Height = 21
+              Style = csDropDownList
+              CharCase = ecUpperCase
+              ItemIndex = 0
+              TabOrder = 3
+              Text = 'S'
+              Items.Strings = (
+                'S'
+                'N')
+            end
+            object cbCidadeFunc: TComboBox
+              Left = 119
+              Top = 74
+              Width = 156
+              Height = 21
+              Style = csDropDownList
+              CharCase = ecUpperCase
+              ItemIndex = 0
+              TabOrder = 4
+              Text = 'S'
+              Items.Strings = (
+                'S'
+                'N')
+            end
+            object edtCepFunc: TEdit
+              Left = 525
+              Top = 29
+              Width = 107
+              Height = 21
+              TabOrder = 5
+            end
+          end
+          object btnGravaFunc: TButton
+            Left = 624
+            Top = 364
+            Width = 129
+            Height = 36
+            Caption = 'Gravar Funcion'#225'rio'
+            TabOrder = 18
+            OnClick = btnGravaFuncClick
+          end
         end
       end
     end
@@ -597,18 +1068,6 @@ object Form1: TForm1
     end
     object datasetEmpresaDTEXCLUIDO: TDateField
       FieldName = 'DTEXCLUIDO'
-    end
-  end
-  object PopupMenu1: TPopupMenu
-    Left = 711
-    Top = 171
-    object Excluir1: TMenuItem
-      Caption = 'Excluir'
-      OnClick = Excluir1Click
-    end
-    object Editar1: TMenuItem
-      Caption = 'Editar'
-      OnClick = Editar1Click
     end
   end
   object dsEnderecos: TDataSource
