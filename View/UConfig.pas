@@ -42,6 +42,7 @@ implementation
 procedure TFrmConfig.Button1Click(Sender: TObject);
 begin
   writeconfig;
+  Close;
 end;
 
 procedure TFrmConfig.FormCreate(Sender: TObject);
@@ -51,10 +52,10 @@ end;
 
 procedure TFrmConfig.readconfi;
 begin
-  with TIniFile.Create(ExtractFilePath(Application.ExeName)+'icom.ini') do
+  with TIniFile.Create(ExtractFilePath(Application.ExeName)+'con.ini') do
   try
 
-    if not FileExists(ExtractFilePath(Application.ExeName)+'icom.ini') then
+    if not FileExists(ExtractFilePath(Application.ExeName)+'con.ini') then
     begin
       WriteString('BD','EndServidor',(trim(edtServidor.Text)));
       WriteString('BD','PortaServidor',(trim(edtPorta.Text)));
@@ -67,7 +68,7 @@ begin
       edtPorta.Text     := (ReadString('BD','PortaServidor',('3050')));
       edtUsuario.Text   := (ReadString('BD','usuario',('SYSDBA')));
       edtSenha.Text     := (ReadString('BD','senha','masterkey'));
-      edtBaseDados.Text := (ReadString('BD','BaseDados',(trim(ExtractFilePath(Application.ExeName)+'DataBase\icom.fdb'))));
+      edtBaseDados.Text := (ReadString('BD','BaseDados',(trim(ExtractFilePath(Application.ExeName)+'\DADOS.fdb'))));
     end;
 
   finally
@@ -77,7 +78,7 @@ end;
 
 procedure TFrmConfig.writeconfig;
 begin
-  with TIniFile.Create(ExtractFilePath(Application.ExeName)+'icom.ini') do
+  with TIniFile.Create(ExtractFilePath(Application.ExeName)+'con.ini') do
   try
     WriteString('BD','EndServidor',(trim(edtServidor.Text)));
     WriteString('BD','PortaServidor',(trim(edtPorta.Text)));

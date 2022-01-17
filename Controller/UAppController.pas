@@ -2,7 +2,7 @@ unit UAppController;
 
 interface
 
-Uses Data.SqlExpr, Vcl.Forms,system.sysutils;
+Uses Data.SqlExpr, Vcl.Forms,system.sysutils, System.IniFiles;
 
 type
   TAppConnection = class
@@ -28,16 +28,16 @@ begin
   result := false;
 
   try
-    with conexao do
-    begin
-      VendorLib := 'fbclient.dll';
-      Params.Add('User_Name=SYSDBA');
-      Params.Add('Password=masterkey');
-      Params.Add('Database=localhost:'+ExtractFilePath(Application.ExeName)+'\DADOS.FDB');
-      connected := true;
 
-      result := connected;
-    end;
+    conexao.VendorLib := 'fbclient.dll';
+    conexao.Params.Add('User_Name=SYSDBA');
+    conexao.Params.Add('Password=masterkey');
+    conexao.Params.Add('Database=localhost:'+ExtractFilePath(Application.ExeName)+'\DADOS.FDB');
+
+    conexao.connected := true;
+
+    result := conexao.connected;
+
   except
 
   end;

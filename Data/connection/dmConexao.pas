@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes,  Data.SqlExpr, Data.DBXFirebird,
-  Data.FMTBcd,UAppController, Data.DB, Vcl.Dialogs;
+  Data.FMTBcd,UAppController, Data.DB, Vcl.Dialogs, Vcl.Forms;
 
 type
   TUdmConexao = class(TDataModule)
@@ -36,9 +36,10 @@ begin
   try
     if not AppController.ConectDB then
     begin
-      showmessage('Não foi possível conectar ao banco de dados');
-      AppController.OpenConfig();
+      showmessage('Banco de dados não encontrado na pasta da aplicação.');
+      Application.terminate;
     end;
+
   finally
     AppController.free;
   end;

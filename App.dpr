@@ -20,7 +20,7 @@ uses
 
 begin
 
-  system.ReportMemoryLeaksOnShutdown := True;
+//  system.ReportMemoryLeaksOnShutdown := True;
 
   Application.Initialize;
   Application.MainFormOnTaskbar := True;

@@ -13,6 +13,7 @@ object FrmConfig: TFrmConfig
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -28,9 +29,6 @@ object FrmConfig: TFrmConfig
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitTop = -115
-    ExplicitWidth = 326
-    ExplicitHeight = 414
     DesignSize = (
       340
       293)
@@ -139,8 +137,7 @@ object FrmConfig: TFrmConfig
       Style.Font.Style = [fsBold]
       Style.IsFontAssigned = True
       TabOrder = 1
-      Text = 'C:\iComercio\DataBase\icom.fdb'
-      ExplicitWidth = 592
+      Text = 'DADOS.FDB'
       Height = 21
       Width = 303
     end
@@ -162,7 +159,6 @@ object FrmConfig: TFrmConfig
       ShowHint = False
       TabOrder = 2
       Text = '3050'
-      ExplicitWidth = 592
     end
     object edtUsuario: TEdit
       Left = 19
@@ -181,7 +177,6 @@ object FrmConfig: TFrmConfig
       ShowHint = False
       TabOrder = 3
       Text = 'SYSDBA'
-      ExplicitWidth = 592
     end
     object edtSenha: TEdit
       Left = 19
@@ -201,7 +196,6 @@ object FrmConfig: TFrmConfig
       ShowHint = False
       TabOrder = 4
       Text = 'masterkey'
-      ExplicitWidth = 592
     end
     object edtServidor: TcxTextEdit
       Left = 19
@@ -218,7 +212,6 @@ object FrmConfig: TFrmConfig
       StyleDisabled.TextColor = clGray
       TabOrder = 0
       Text = '127.0.0.1'
-      ExplicitWidth = 592
       Width = 303
     end
     object Button1: TButton
