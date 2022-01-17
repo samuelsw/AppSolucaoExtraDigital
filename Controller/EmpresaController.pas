@@ -209,10 +209,14 @@ begin
         end;
 
         sql.add(copy(sqlUpdate.text,0,Length(sqlUpdate.text)-4));
-        sql.add(' where IDEMPRESA =:IDEMPRESA');
 
-        Params.CreateParam(ftInteger, 'IDEMPRESA', ptInput);
-        Params.Parambyname('IDEMPRESA').AsInteger := AtualizacaoEmpresa.IdEmp;
+
+        if AtualizacaoEmpresa.IdEmp > 0 then
+        begin
+          sql.add(' where IDEMPRESA =:IDEMPRESA ');
+          Params.CreateParam(ftInteger, 'IDEMPRESA', ptInput);
+          Params.Parambyname('IDEMPRESA').AsInteger := AtualizacaoEmpresa.IdEmp;
+        end;
 
         execsql;
       end;

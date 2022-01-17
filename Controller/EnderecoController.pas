@@ -3,12 +3,14 @@ unit EnderecoController;
 interface
 
 uses
-  UEnderecoModel, System.Generics.Collections, Data.DB;
+  UEnderecoModel, System.Generics.Collections, Data.DB,Data.SqlExpr;
 
   Type
   TEnderecoController = class
 
   private
+    function InativaEnderecos(idEmpresa : Integer): boolean;
+    function CriarQuery():TSqlQuery;
 
   public
     function selectByIdEmpresa(idEmpresa : Integer): TList<TEndereco>;
@@ -22,10 +24,16 @@ uses
 implementation
 
 uses
-  dmEndereco;
+  dmEndereco, dmConexao;
 
 
 { TEnderecoController }
+
+function TEnderecoController.CriarQuery: TSqlQuery;
+begin
+  result               := TSqlQuery.create(nil);
+  result.SQLConnection := udmConexao.SqlConnection;
+end;
 
 function TEnderecoController.delete(idEndereco : Integer): boolean;
 begin
@@ -43,10 +51,30 @@ begin
   end;
 end;
 
+function TEnderecoController.InativaEnderecos(idEmpresa : Integer): boolean;
+begin
+  With CriarQuery() do
+  try
+    sql.add('update CADENDERECOS set STATIVO = :STATIVO where (IDEMPRESA = :IDEMPRESA)');
+    Params.Parambyname('STATIVO').AsString     := 'N';
+    Params.Parambyname('IDEMPRESA').AsInteger  := idEmpresa;
+    execsql;
+  finally
+    free;
+  end;
+end;
+
 function TEnderecoController.insert(novoEndereco: TEndereco): boolean;
 begin
   try
     result := false;
+
+    // Inativas os demais endereços
+    if novoEndereco.STATIVO = 'S' then
+    begin
+      InativaEnderecos(novoEndereco.IDEMPRESA);
+    end;
+
     with UdmEndereco.QryInsert do
     begin
       Params.Parambyname('IDTITULAR').AsInteger   := novoEndereco.IDTITULAR;
@@ -63,6 +91,7 @@ begin
       Params.Parambyname('TPCADASTRO').AsString   := novoEndereco.TPCADASTRO;
       execsql;
     end;
+
     result := true;
   except
     raise;

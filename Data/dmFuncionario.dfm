@@ -192,7 +192,16 @@ object UdmFuncionario: TUdmFuncionario
   end
   object QryDelete: TSQLQuery
     MaxBlobSize = -1
-    Params = <>
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'IDFUNCIONARIO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      
+        'delete from CADFUNCIONARIOS where (IDFUNCIONARIO = :IDFUNCIONARI' +
+        'O)   ')
     SQLConnection = UdmConexao.SqlConnection
     Left = 202
     Top = 33

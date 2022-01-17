@@ -29,7 +29,18 @@ uses
 
 function TFuncionarioController.delete(idFuncionario: Integer): boolean;
 begin
-  //
+  try
+    result := false;
+
+    with UdmFuncionario.QryDelete do
+    begin
+      Params.Parambyname('IDFUNCIONARIO').AsInteger := idFuncionario;
+      execsql;
+    end;
+    result := true;
+  except
+    raise;
+  end;
 end;
 
 function TFuncionarioController.getbyidEmpresa(idEmpresa: Integer): TList<TFuncionario>;

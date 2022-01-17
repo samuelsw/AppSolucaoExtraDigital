@@ -38,13 +38,11 @@ type
     btnPesquisaEmpresa: TButton;
     GroupBox1: TGroupBox;
     edtFiltro: TEdit;
-    ComboBox1: TComboBox;
     Button1: TButton;
     PnlTop: TPanel;
     btnCadastraEmpresa: TButton;
     btnCadastraFunc: TButton;
     Label1: TLabel;
-    Label2: TLabel;
     GroupBox2: TGroupBox;
     lblRazao: TLabel;
     EdtNMEMPRESA: TEdit;
@@ -183,6 +181,8 @@ type
     datasetFuncionariosDTEXCLUIDO: TDateField;
     pmEndereco: TPopupMenu;
     ExcluirEndereco1: TMenuItem;
+    pmFuncionario: TPopupMenu;
+    ExcluirFuncionrio1: TMenuItem;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -197,6 +197,8 @@ type
     procedure btnExcluiEmpresaClick(Sender: TObject);
     procedure btnGravaFuncClick(Sender: TObject);
     procedure ExcluirEndereco1Click(Sender: TObject);
+    procedure ExcluirFuncionrio1Click(Sender: TObject);
+
   private
     { Private declarations }
     DataEmpresa     : TEmpresaController;
@@ -209,12 +211,13 @@ type
     procedure LoadDatasetFuncionario(listaFuncionarios : TList<TFuncionario>; qryFuncionario :TClientDataSet );
     procedure PageControlNavegation(acao : TpNavegation);
     procedure resetCadEmpresa();
+    procedure resetCadFuncionario();
     procedure CadastraEmpresa();
+    procedure CadastraEnderecoEmpresa();
     procedure AtualizaEmpresa();
     procedure BuscaEmpresas();
     procedure BuscaFuncionarios();
     procedure BuscaEnderecos();
-    procedure CadastraEnderecoEmpresa();
     function EditToObjEmpresa():TEmpresa;
     function EditToObjEndereco():TEndereco;
     function EditToObjFuncionario():TFuncionario;
@@ -235,6 +238,7 @@ implementation
 procedure TForm1.btnCadastraFuncClick(Sender: TObject);
 begin
   PageControlNavegation(tpCadastroFuncionarios);
+  resetCadFuncionario();
 end;
 
 procedure TForm1.BtnEditaEmpresaClick(Sender: TObject);
@@ -277,7 +281,8 @@ begin
   try
     try
 
-  // Caso queira realmente deletar o registro
+  //    Caso queira realmente deletar o registro
+
   //    if DataEmpresa.delete(datasetEmpresa.Fieldbyname('IDEMPRESA').AsInteger) then
   //    begin
   //      showmessage('Empresa Excluida');
@@ -499,6 +504,20 @@ begin
   end;
 end;
 
+procedure TForm1.ExcluirFuncionrio1Click(Sender: TObject);
+begin
+  if datasetFuncionarios.isempty then exit;
+
+  try
+    if DataFuncionario.delete(datasetFuncionarios.fieldbyname('IDFUNCIONARIO').AsInteger) then
+    showmessage('Funcionario Excluido');
+
+    BuscaFuncionarios;
+  finally
+
+  end;
+end;
+
 procedure TForm1.CadastraEmpresa;
 var novaEmpresa : TEmpresa;
 begin
@@ -522,6 +541,7 @@ var novaEndereco : TEndereco;
 begin
   try
     try
+
       novaEndereco := EditToObjEndereco();
 
       if DataEndereco.insert(novaEndereco) then
@@ -758,6 +778,33 @@ begin
   edtTXEMAIL.clear;
   edtCod.clear;
   datasetEnderecos.Close;
+end;
+
+procedure TForm1.resetCadFuncionario;
+begin
+  EdtNome.Clear;
+  EdtCPF.Clear;
+  edtRG.Clear;
+  EdtDateNasc.date := date;
+  edtEmail.Clear;
+  edtCarteiraTrab.Clear;
+  edtTituloEleitor.Clear;
+  edtCarteiraMotorista.Clear;
+  edtTipoCategoria.Clear;
+  edtDataVencCarteira.date := date;
+  edtTelREsidencial.Clear;
+  edtCelular.Clear;
+  edtTElContato.Clear;
+  EdtDataAdm.Clear;
+  edtDataDemissao.Clear;
+  cbFuncAtivo.Clear;
+  edtTxOBSFunc.Clear;
+  EdtEndrecoFunc.Clear;
+  edtNumEnderecoFunc.Clear;
+  edtBairroFunc.Clear;
+  cbUFFunc.Clear;
+  cbCidadeFunc.Clear;
+  edtCepFunc.Clear;
 end;
 
 end.

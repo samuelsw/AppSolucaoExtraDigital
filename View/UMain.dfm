@@ -39,7 +39,7 @@ object Form1: TForm1
     Align = alBottom
     TabOrder = 0
     object btnPesquisaEmpresa: TButton
-      Left = 15
+      Left = 50
       Top = 6
       Width = 125
       Height = 43
@@ -49,7 +49,7 @@ object Form1: TForm1
       OnClick = btnPesquisaEmpresaClick
     end
     object btnCadastraEmpresa: TButton
-      Left = 149
+      Left = 189
       Top = 6
       Width = 125
       Height = 43
@@ -58,7 +58,7 @@ object Form1: TForm1
       OnClick = btnCadastraEmpresaClick
     end
     object btnCadastraFunc: TButton
-      Left = 551
+      Left = 606
       Top = 6
       Width = 125
       Height = 43
@@ -68,7 +68,7 @@ object Form1: TForm1
       OnClick = btnCadastraFuncClick
     end
     object BtnEditaEmpresa: TButton
-      Left = 283
+      Left = 328
       Top = 6
       Width = 125
       Height = 43
@@ -78,7 +78,7 @@ object Form1: TForm1
       OnClick = BtnEditaEmpresaClick
     end
     object btnExcluiEmpresa: TButton
-      Left = 417
+      Left = 467
       Top = 6
       Width = 125
       Height = 43
@@ -119,11 +119,15 @@ object Form1: TForm1
         Top = 1
         Width = 788
         Height = 447
-        ActivePage = TabEmpresas
+        ActivePage = tabCadEmpresa
         Align = alClient
         TabOrder = 0
         object TabEmpresas: TTabSheet
           Caption = 'TabEmpresas'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Funcionarios: TLabel
             Left = 3
             Top = 296
@@ -234,32 +238,12 @@ object Form1: TForm1
               Height = 13
               Caption = 'Filtro '
             end
-            object Label2: TLabel
-              Left = 424
-              Top = 7
-              Width = 67
-              Height = 13
-              Caption = 'Tipos de Filtro'
-            end
             object edtFiltro: TEdit
               Left = 6
               Top = 21
-              Width = 407
+              Width = 643
               Height = 21
               TabOrder = 0
-            end
-            object ComboBox1: TComboBox
-              Left = 424
-              Top = 21
-              Width = 217
-              Height = 21
-              Style = csDropDownList
-              ItemIndex = 0
-              TabOrder = 1
-              Text = 'POR ID '
-              Items.Strings = (
-                'POR ID '
-                'POR NOME')
             end
             object Button1: TButton
               Left = 669
@@ -267,7 +251,7 @@ object Form1: TForm1
               Width = 84
               Height = 35
               Caption = 'Pesquisar'
-              TabOrder = 2
+              TabOrder = 1
               OnClick = Button1Click
             end
           end
@@ -277,6 +261,7 @@ object Form1: TForm1
             Width = 774
             Height = 98
             DataSource = dsFuncionarios
+            PopupMenu = pmFuncionario
             ReadOnly = True
             TabOrder = 2
             TitleFont.Charset = DEFAULT_CHARSET
@@ -1512,6 +1497,14 @@ object Form1: TForm1
     object ExcluirEndereco1: TMenuItem
       Caption = 'Excluir Endere'#231'o'
       OnClick = ExcluirEndereco1Click
+    end
+  end
+  object pmFuncionario: TPopupMenu
+    Left = 664
+    Top = 425
+    object ExcluirFuncionrio1: TMenuItem
+      Caption = 'Excluir Funcion'#225'rio'
+      OnClick = ExcluirFuncionrio1Click
     end
   end
 end
