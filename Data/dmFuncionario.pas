@@ -8,6 +8,9 @@ uses
 type
   TUdmFuncionario = class(TDataModule)
     QryInsert: TSQLQuery;
+    QrySelect: TSQLQuery;
+    QryUpdate: TSQLQuery;
+    QryDelete: TSQLQuery;
   private
     { Private declarations }
   public

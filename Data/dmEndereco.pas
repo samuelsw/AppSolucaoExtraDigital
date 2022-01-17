@@ -9,6 +9,8 @@ type
   TUdmEndereco = class(TDataModule)
     QrySelect: TSQLQuery;
     QryInsert: TSQLQuery;
+    QryDelete: TSQLQuery;
+    QryUpdate: TSQLQuery;
   private
     { Private declarations }
   public

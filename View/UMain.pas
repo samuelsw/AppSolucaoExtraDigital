@@ -8,8 +8,7 @@ uses
   Data.FMTBcd, Data.SqlExpr, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,EmpresaController, System.Generics.Collections,
    Datasnap.DBClient, Vcl.AppEvnts, Vcl.Menus,EnderecoController, Vcl.Mask,UFuncionarioModel,FuncionarioController;
 
-type TpNavegation=(tpPesquisaEmpresa,tpCadastraEmpresa,tpCadastroFuncionarios);
-type TpEdit = (tpInsert,tpEditing);
+type TpNavegation=(tpPesquisaEmpresa,tpCadastraEmpresa,tpCadastroFuncionarios,tpEditarEmpresa);
 
 type
   TForm1 = class(TForm)
@@ -151,6 +150,39 @@ type
     Label36: TLabel;
     edtCepFunc: TEdit;
     btnGravaFunc: TButton;
+    datasetFuncionarios: TClientDataSet;
+    dsFuncionarios: TDataSource;
+    datasetFuncionariosIDFUNCIONARIO: TIntegerField;
+    datasetFuncionariosIDEMPRESA: TIntegerField;
+    datasetFuncionariosNMFUNCIONARIO: TStringField;
+    datasetFuncionariosNUCPF: TStringField;
+    datasetFuncionariosNURG: TStringField;
+    datasetFuncionariosDTNASCIMENTO: TDateField;
+    datasetFuncionariosTXEMAIL: TStringField;
+    datasetFuncionariosNUCARTEIRATRAB: TStringField;
+    datasetFuncionariosNUTITULOELEITOR: TStringField;
+    datasetFuncionariosNUCARTEIRAMOTORISTA: TStringField;
+    datasetFuncionariosTPCATERORIA: TStringField;
+    datasetFuncionariosDTVALIDADECARTEIRAMOT: TDateField;
+    datasetFuncionariosTLRESIDENCIAL: TStringField;
+    datasetFuncionariosTLCELULAR: TStringField;
+    datasetFuncionariosTLCONTATO: TStringField;
+    datasetFuncionariosNMCONTATO: TStringField;
+    datasetFuncionariosDTCONTRATACAO: TDateField;
+    datasetFuncionariosDTDEMISSAO: TDateField;
+    datasetFuncionariosDTCADASTRO: TDateField;
+    datasetFuncionariosSTATIVO: TStringField;
+    datasetFuncionariosTXOBS: TStringField;
+    datasetFuncionariosNMENDERECO: TStringField;
+    datasetFuncionariosNUENDERECO: TStringField;
+    datasetFuncionariosNMBAIRRO: TStringField;
+    datasetFuncionariosIDCIDADE: TIntegerField;
+    datasetFuncionariosIDUF: TIntegerField;
+    datasetFuncionariosNUCEP: TStringField;
+    datasetFuncionariosSTEXCLUIDO: TStringField;
+    datasetFuncionariosDTEXCLUIDO: TDateField;
+    pmEndereco: TPopupMenu;
+    ExcluirEndereco1: TMenuItem;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -164,6 +196,7 @@ type
     procedure DBGrid2CellClick(Column: TColumn);
     procedure btnExcluiEmpresaClick(Sender: TObject);
     procedure btnGravaFuncClick(Sender: TObject);
+    procedure ExcluirEndereco1Click(Sender: TObject);
   private
     { Private declarations }
     DataEmpresa     : TEmpresaController;
@@ -173,11 +206,14 @@ type
 
     procedure LoadDatasetEmpresas(listaEmpresas :TList<TEmpresa>;QryEmpresa :TClientDataSet );
     procedure LoadDataSetEnderecos(listaEnderecos : TList<TEndereco>; QryEndereco :TClientDataSet );
+    procedure LoadDatasetFuncionario(listaFuncionarios : TList<TFuncionario>; qryFuncionario :TClientDataSet );
     procedure PageControlNavegation(acao : TpNavegation);
     procedure resetCadEmpresa();
     procedure CadastraEmpresa();
     procedure AtualizaEmpresa();
     procedure BuscaEmpresas();
+    procedure BuscaFuncionarios();
+    procedure BuscaEnderecos();
     procedure CadastraEnderecoEmpresa();
     function EditToObjEmpresa():TEmpresa;
     function EditToObjEndereco():TEndereco;
@@ -202,7 +238,6 @@ begin
 end;
 
 procedure TForm1.BtnEditaEmpresaClick(Sender: TObject);
-var listaEnderecosEmp : TList<TEndereco>;
 begin
   if datasetEmpresa.isempty then
   exit;
@@ -211,7 +246,7 @@ begin
     try
       EditingEmpresa := true;
 
-      PageControlNavegation(tpCadastraEmpresa);
+      PageControlNavegation(tpEditarEmpresa);
       EdtNMEMPRESA.Text   := datasetEmpresa.Fieldbyname('NMEMPRESA').AsString;
       EdtNUINSCRICAO.Text := datasetEmpresa.Fieldbyname('NUINSCRICAO').AsString;
       edtTLCOMERCIAL.Text := datasetEmpresa.Fieldbyname('TLCOMERCIAL').AsString;
@@ -222,21 +257,15 @@ begin
       edtTXEMAIL.Text     := datasetEmpresa.Fieldbyname('TXEMAIL').AsString;
       edtCod.Text         := datasetEmpresa.Fieldbyname('IDEMPRESA').AsString;
 
-      listaEnderecosEmp := DataEndereco.selectByIdEmpresa(datasetEmpresa.Fieldbyname('IDEMPRESA').AsInteger);
-
-      if listaEnderecosEmp.count >0 then
-      begin
-        loadDataSetEnderecos(listaEnderecosEmp,datasetEnderecos);
-      end;
+      BuscaEnderecos();
 
     except
       on e:exception do
         showmessage('Erro ao editar empresa. '+E.message);
     end;
   finally
-    listaEnderecosEmp.free;
-  end;
 
+  end;
 end;
 
 procedure TForm1.btnExcluiEmpresaClick(Sender: TObject);
@@ -315,9 +344,47 @@ begin
   end;
 end;
 
+procedure TForm1.BuscaEnderecos;
+var listaEnderecosEmp : TList<TEndereco>;
+begin
+  try
+    listaEnderecosEmp := DataEndereco.selectByIdEmpresa(datasetEmpresa.Fieldbyname('IDEMPRESA').AsInteger);
+
+    if listaEnderecosEmp.count >0 then
+    begin
+      loadDataSetEnderecos(listaEnderecosEmp,datasetEnderecos);
+    end;
+  finally
+    listaEnderecosEmp.free;
+  end;
+end;
+
+procedure TForm1.BuscaFuncionarios;
+var listaFuncionarios : TList<TFuncionario>;
+    i : Integer;
+begin
+  listaFuncionarios := DataFuncionario.getbyidEmpresa(datasetEmpresa.Fieldbyname('IDEMPRESA').AsInteger);
+
+  try
+     if listaFuncionarios <> nil then
+     begin
+       if listaFuncionarios.count > 0 then
+         LoadDatasetFuncionario(listaFuncionarios,datasetFuncionarios)
+       else
+         datasetFuncionarios.close;
+     end
+     else
+      datasetFuncionarios.close;
+
+  finally
+     listaFuncionarios.free;
+  end;
+end;
+
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   BuscaEmpresas();
+  BuscaFuncionarios();
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -329,7 +396,7 @@ begin
   end;
 
   CadastraEnderecoEmpresa();
-
+  BuscaEnderecos();
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -399,8 +466,8 @@ begin
   result.TLCELULAR             := edtCelular.text;
   result.TLCONTATO             := edtTElContato.text;
   result.NMCONTATO             := '';
-  result.DTCONTRATACAO         := Strtodate(EdtDataAdm.text);
-  result.DTDEMISSAO            := Strtodate(edtDataDemissao.text);
+  result.DTCONTRATACAO         := Strtodatedef(EdtDataAdm.text,date);
+  result.DTDEMISSAO            := Strtodatedef(edtDataDemissao.text,date);
   result.DTCADASTRO            := date;
   result.STATIVO               := trim(cbFuncAtivo.text);
   result.TXOBS                 := Trim(edtTxOBSFunc.text);
@@ -411,6 +478,25 @@ begin
   result.IDUF                  := cbUFFunc.itemindex;
   result.NUCEP                 := edtCepFunc.text;
 
+end;
+
+procedure TForm1.ExcluirEndereco1Click(Sender: TObject);
+begin
+  try
+    try
+      if datasetEnderecos.isempty then exit;
+
+      if DataEndereco.Delete(datasetEnderecos.fieldbyname('IDENDERECO').AsInteger) then
+      showmessage('Endereço excluido');
+
+      BuscaEnderecos;
+
+    except
+      on e:exception do
+       showmessage('Erro ao excluir endereço. '+e.message);
+    end;
+  finally
+  end;
 end;
 
 procedure TForm1.CadastraEmpresa;
@@ -438,8 +524,12 @@ begin
     try
       novaEndereco := EditToObjEndereco();
 
-     if DataEndereco.insert(novaEndereco) then
-      showmessage('Cadastrado com sucesso');
+      if DataEndereco.insert(novaEndereco) then
+      begin
+        showmessage('Cadastrado com sucesso');
+        resetCadEmpresa;
+      end;
+
     except
       on e:exception do
        showmessage('Erro ao cadastrar nova empresa. '+e.message);
@@ -457,6 +547,8 @@ begin
   BtnEditaEmpresa.enabled  := true;
   btnCadastraFunc.Enabled  := true;
   btnExcluiEmpresa.Enabled := true;
+  BuscaFuncionarios();
+
 end;
 
 
@@ -565,6 +657,48 @@ begin
 
 end;
 
+procedure TForm1.LoadDatasetFuncionario(listaFuncionarios: TList<TFuncionario>; qryFuncionario: TClientDataSet);
+var i : integer;
+begin
+  datasetFuncionarios.close;
+  datasetFuncionarios.CreateDataSet;
+
+  for i:=0 to listaFuncionarios.count -1 do
+  begin
+    qryFuncionario.insert;
+    qryFuncionario.Fieldbyname('IDFUNCIONARIO').AsInteger          := listaFuncionarios[i].IDFUNCIONARIO ;
+    qryFuncionario.Fieldbyname('IDEMPRESA').AsInteger              := listaFuncionarios[i].IDEMPRESA ;
+    qryFuncionario.Fieldbyname('NMFUNCIONARIO').AsString           := listaFuncionarios[i].NMFUNCIONARIO ;
+    qryFuncionario.Fieldbyname('NUCPF').AsString                   := listaFuncionarios[i].NUCPF ;
+    qryFuncionario.Fieldbyname('NURG').AsString                    := listaFuncionarios[i].NURG ;
+    qryFuncionario.Fieldbyname('DTNASCIMENTO').AsDateTime          := listaFuncionarios[i].DTNASCIMENTO ;
+    qryFuncionario.Fieldbyname('TXEMAIL').AsString                 := listaFuncionarios[i].TXEMAIL ;
+    qryFuncionario.Fieldbyname('NUCARTEIRATRAB').AsString          := listaFuncionarios[i].NUCARTEIRATRAB ;
+    qryFuncionario.Fieldbyname('NUTITULOELEITOR').AsString         := listaFuncionarios[i].NUTITULOELEITOR ;
+    qryFuncionario.Fieldbyname('NUCARTEIRAMOTORISTA').AsString     := listaFuncionarios[i].NUCARTEIRAMOTORISTA ;
+    qryFuncionario.Fieldbyname('TPCATERORIA').AsString             := listaFuncionarios[i].TPCATERORIA ;
+    qryFuncionario.Fieldbyname('DTVALIDADECARTEIRAMOT').AsDateTime := listaFuncionarios[i].DTVALIDADECARTEIRAMOT ;
+    qryFuncionario.Fieldbyname('TLRESIDENCIAL').AsString           := listaFuncionarios[i].TLRESIDENCIAL ;
+    qryFuncionario.Fieldbyname('TLCELULAR').AsString               := listaFuncionarios[i].TLCELULAR ;
+    qryFuncionario.Fieldbyname('TLCONTATO').AsString               := listaFuncionarios[i].TLCONTATO ;
+    qryFuncionario.Fieldbyname('NMCONTATO').AsString               := listaFuncionarios[i].NMCONTATO ;
+    qryFuncionario.Fieldbyname('DTCONTRATACAO').AsDateTime         := listaFuncionarios[i].DTCONTRATACAO ;
+    qryFuncionario.Fieldbyname('DTDEMISSAO').AsDateTime            := listaFuncionarios[i].DTDEMISSAO ;
+    qryFuncionario.Fieldbyname('DTCADASTRO').AsDateTime            := listaFuncionarios[i].DTCADASTRO ;
+    qryFuncionario.Fieldbyname('STATIVO').AsString                 := listaFuncionarios[i].STATIVO ;
+    qryFuncionario.Fieldbyname('TXOBS').AsString                   := listaFuncionarios[i].TXOBS ;
+    qryFuncionario.Fieldbyname('NMENDERECO').AsString              := listaFuncionarios[i].NMENDERECO ;
+    qryFuncionario.Fieldbyname('NUENDERECO').AsString              := listaFuncionarios[i].NUENDERECO ;
+    qryFuncionario.Fieldbyname('NMBAIRRO').AsString                := listaFuncionarios[i].NMBAIRRO ;
+    qryFuncionario.Fieldbyname('IDCIDADE').AsInteger               := listaFuncionarios[i].IDCIDADE ;
+    qryFuncionario.Fieldbyname('IDUF').AsInteger                   := listaFuncionarios[i].IDUF ;
+    qryFuncionario.Fieldbyname('NUCEP').AsString                   := listaFuncionarios[i].NUCEP ;
+    qryFuncionario.post;
+
+    listaFuncionarios[i].free;
+  end;
+end;
+
 procedure TForm1.PageControlNavegation(acao: TpNavegation);
 begin
   case acao of
@@ -594,6 +728,17 @@ begin
       btnCadastraEmpresa.Enabled := true;
       btnCadastraFunc.Enabled    := false;
     end;
+
+    tpEditarEmpresa:
+    begin
+      PageControl1.ActivePage    := tabCadEmpresa;
+      PnlTop.Caption             := 'Editando Empresa';
+      btnPesquisaEmpresa.Enabled := true;
+      btnCadastraEmpresa.Enabled := false;
+      btnCadastraFunc.Enabled    := false;
+      BtnEditaEmpresa.Enabled    := false;
+      btnExcluiEmpresa.Enabled   := false;
+    end;
   end;
 end;
 
@@ -612,6 +757,7 @@ begin
   edtTXOBS.clear;
   edtTXEMAIL.clear;
   edtCod.clear;
+  datasetEnderecos.Close;
 end;
 
 end.

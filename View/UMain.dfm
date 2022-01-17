@@ -152,6 +152,74 @@ object Form1: TForm1
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
             OnCellClick = DBGrid2CellClick
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'IDEMPRESA'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NMEMPRESA'
+                Width = 200
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUCNPJ'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUINSCRICAO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'STATIVO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTCADASTRO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTABERTURA'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TLCOMERCIAL'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TLCELULAR'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TXOBS'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TXEMAIL'
+                Width = 150
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'STEXCLUIDO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTEXCLUIDO'
+                Visible = True
+              end>
           end
           object GroupBox1: TGroupBox
             Left = 3
@@ -208,6 +276,7 @@ object Form1: TForm1
             Top = 316
             Width = 774
             Height = 98
+            DataSource = dsFuncionarios
             ReadOnly = True
             TabOrder = 2
             TitleFont.Charset = DEFAULT_CHARSET
@@ -215,6 +284,157 @@ object Form1: TForm1
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'IDFUNCIONARIO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'IDEMPRESA'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NMFUNCIONARIO'
+                Width = 150
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUCPF'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NURG'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTNASCIMENTO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TXEMAIL'
+                Width = 150
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUCARTEIRATRAB'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUTITULOELEITOR'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUCARTEIRAMOTORISTA'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TPCATERORIA'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTVALIDADECARTEIRAMOT'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TLRESIDENCIAL'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TLCELULAR'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TLCONTATO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NMCONTATO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTCONTRATACAO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTDEMISSAO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTCADASTRO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'STATIVO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'TXOBS'
+                Width = 150
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NMENDERECO'
+                Width = 150
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUENDERECO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NMBAIRRO'
+                Width = 150
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'IDCIDADE'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'IDUF'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NUCEP'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'STEXCLUIDO'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DTEXCLUIDO'
+                Visible = True
+              end>
           end
         end
         object tabCadEmpresa: TTabSheet
@@ -309,21 +529,21 @@ object Form1: TForm1
               Top = 73
               Width = 262
               Height = 21
-              TabOrder = 1
+              TabOrder = 3
             end
             object edtTLCOMERCIAL: TEdit
               Left = 14
               Top = 113
               Width = 133
               Height = 21
-              TabOrder = 2
+              TabOrder = 6
             end
             object edtTLCELULAR: TEdit
               Left = 166
               Top = 113
               Width = 133
               Height = 21
-              TabOrder = 3
+              TabOrder = 7
             end
             object edtDTABERTURA: TEdit
               Left = 287
@@ -337,21 +557,21 @@ object Form1: TForm1
               Top = 34
               Width = 204
               Height = 21
-              TabOrder = 5
+              TabOrder = 1
             end
             object edtTXOBS: TEdit
               Left = 317
               Top = 113
               Width = 61
               Height = 21
-              TabOrder = 6
+              TabOrder = 8
             end
             object edtTXEMAIL: TEdit
               Left = 477
               Top = 73
               Width = 282
               Height = 21
-              TabOrder = 7
+              TabOrder = 5
             end
             object STATIVO: TComboBox
               Left = 689
@@ -361,7 +581,7 @@ object Form1: TForm1
               Style = csDropDownList
               CharCase = ecUpperCase
               ItemIndex = 0
-              TabOrder = 8
+              TabOrder = 2
               Text = 'S'
               Items.Strings = (
                 'S'
@@ -373,7 +593,7 @@ object Form1: TForm1
               Width = 123
               Height = 36
               Caption = 'Gravar Empresa'
-              TabOrder = 9
+              TabOrder = 10
               OnClick = Button5Click
             end
             object edtCod: TEdit
@@ -381,7 +601,7 @@ object Form1: TForm1
               Top = 113
               Width = 61
               Height = 21
-              TabOrder = 10
+              TabOrder = 9
               Visible = False
             end
           end
@@ -455,34 +675,88 @@ object Form1: TForm1
               Height = 129
               Align = alBottom
               DataSource = dsEnderecos
+              PopupMenu = pmEndereco
               ReadOnly = True
-              TabOrder = 1
+              TabOrder = 8
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWindowText
               TitleFont.Height = -11
               TitleFont.Name = 'Tahoma'
               TitleFont.Style = []
+              Columns = <
+                item
+                  Expanded = False
+                  FieldName = 'IDENDERECO'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'IDTITULAR'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'IDEMPRESA'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'NMENDERECO'
+                  Width = 200
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'NMBAIRRO'
+                  Width = 120
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'IDCIDADE'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'IDUF'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'NUCEP'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'STATIVO'
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'TPCADASTRO'
+                  Visible = True
+                end>
             end
             object EdtBairro: TEdit
               Left = 477
               Top = 39
               Width = 204
               Height = 21
-              TabOrder = 2
+              TabOrder = 1
             end
             object edtNum: TEdit
               Left = 689
               Top = 39
               Width = 70
               Height = 21
-              TabOrder = 3
+              TabOrder = 2
             end
             object edtCep: TEdit
               Left = 14
               Top = 84
               Width = 107
               Height = 21
-              TabOrder = 4
+              TabOrder = 3
             end
             object cbUF: TComboBox
               Left = 135
@@ -492,7 +766,7 @@ object Form1: TForm1
               Style = csDropDownList
               CharCase = ecUpperCase
               ItemIndex = 0
-              TabOrder = 5
+              TabOrder = 4
               Text = 'S'
               Items.Strings = (
                 'S'
@@ -506,7 +780,7 @@ object Form1: TForm1
               Style = csDropDownList
               CharCase = ecUpperCase
               ItemIndex = 0
-              TabOrder = 6
+              TabOrder = 5
               Text = 'S'
               Items.Strings = (
                 'S'
@@ -520,7 +794,7 @@ object Form1: TForm1
               Style = csDropDownList
               CharCase = ecUpperCase
               ItemIndex = 0
-              TabOrder = 7
+              TabOrder = 6
               Text = 'S'
               Items.Strings = (
                 'S'
@@ -532,7 +806,7 @@ object Form1: TForm1
               Width = 123
               Height = 36
               Caption = 'Gravar Endere'#231'o'
-              TabOrder = 8
+              TabOrder = 7
               OnClick = Button2Click
             end
           end
@@ -1114,6 +1388,130 @@ object Form1: TForm1
     object datasetEnderecosTPCADASTRO: TStringField
       FieldName = 'TPCADASTRO'
       Size = 1
+    end
+  end
+  object datasetFuncionarios: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 226
+    Top = 268
+    object datasetFuncionariosIDFUNCIONARIO: TIntegerField
+      FieldName = 'IDFUNCIONARIO'
+    end
+    object datasetFuncionariosIDEMPRESA: TIntegerField
+      FieldName = 'IDEMPRESA'
+    end
+    object datasetFuncionariosNMFUNCIONARIO: TStringField
+      FieldName = 'NMFUNCIONARIO'
+      Size = 100
+    end
+    object datasetFuncionariosNUCPF: TStringField
+      FieldName = 'NUCPF'
+      Size = 18
+    end
+    object datasetFuncionariosNURG: TStringField
+      FieldName = 'NURG'
+      Size = 15
+    end
+    object datasetFuncionariosDTNASCIMENTO: TDateField
+      FieldName = 'DTNASCIMENTO'
+    end
+    object datasetFuncionariosTXEMAIL: TStringField
+      FieldName = 'TXEMAIL'
+      Size = 100
+    end
+    object datasetFuncionariosNUCARTEIRATRAB: TStringField
+      FieldName = 'NUCARTEIRATRAB'
+    end
+    object datasetFuncionariosNUTITULOELEITOR: TStringField
+      FieldName = 'NUTITULOELEITOR'
+      Size = 12
+    end
+    object datasetFuncionariosNUCARTEIRAMOTORISTA: TStringField
+      FieldName = 'NUCARTEIRAMOTORISTA'
+      Size = 15
+    end
+    object datasetFuncionariosTPCATERORIA: TStringField
+      FieldName = 'TPCATERORIA'
+      Size = 4
+    end
+    object datasetFuncionariosDTVALIDADECARTEIRAMOT: TDateField
+      FieldName = 'DTVALIDADECARTEIRAMOT'
+    end
+    object datasetFuncionariosTLRESIDENCIAL: TStringField
+      FieldName = 'TLRESIDENCIAL'
+      Size = 15
+    end
+    object datasetFuncionariosTLCELULAR: TStringField
+      FieldName = 'TLCELULAR'
+      Size = 15
+    end
+    object datasetFuncionariosTLCONTATO: TStringField
+      FieldName = 'TLCONTATO'
+      Size = 15
+    end
+    object datasetFuncionariosNMCONTATO: TStringField
+      FieldName = 'NMCONTATO'
+      Size = 50
+    end
+    object datasetFuncionariosDTCONTRATACAO: TDateField
+      FieldName = 'DTCONTRATACAO'
+    end
+    object datasetFuncionariosDTDEMISSAO: TDateField
+      FieldName = 'DTDEMISSAO'
+    end
+    object datasetFuncionariosDTCADASTRO: TDateField
+      FieldName = 'DTCADASTRO'
+    end
+    object datasetFuncionariosSTATIVO: TStringField
+      FieldName = 'STATIVO'
+      Size = 1
+    end
+    object datasetFuncionariosTXOBS: TStringField
+      FieldName = 'TXOBS'
+      Size = 1000
+    end
+    object datasetFuncionariosNMENDERECO: TStringField
+      FieldName = 'NMENDERECO'
+      Size = 100
+    end
+    object datasetFuncionariosNUENDERECO: TStringField
+      FieldName = 'NUENDERECO'
+      Size = 10
+    end
+    object datasetFuncionariosNMBAIRRO: TStringField
+      FieldName = 'NMBAIRRO'
+      Size = 100
+    end
+    object datasetFuncionariosIDCIDADE: TIntegerField
+      FieldName = 'IDCIDADE'
+    end
+    object datasetFuncionariosIDUF: TIntegerField
+      FieldName = 'IDUF'
+    end
+    object datasetFuncionariosNUCEP: TStringField
+      FieldName = 'NUCEP'
+      Size = 10
+    end
+    object datasetFuncionariosSTEXCLUIDO: TStringField
+      FieldName = 'STEXCLUIDO'
+      Size = 1
+    end
+    object datasetFuncionariosDTEXCLUIDO: TDateField
+      FieldName = 'DTEXCLUIDO'
+    end
+  end
+  object dsFuncionarios: TDataSource
+    DataSet = datasetFuncionarios
+    Left = 224
+    Top = 310
+  end
+  object pmEndereco: TPopupMenu
+    Left = 735
+    Top = 424
+    object ExcluirEndereco1: TMenuItem
+      Caption = 'Excluir Endere'#231'o'
+      OnClick = ExcluirEndereco1Click
     end
   end
 end

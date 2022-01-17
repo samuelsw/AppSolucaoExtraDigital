@@ -75,7 +75,8 @@ object UdmEmpresa: TUdmEmpresa
         'select IDEMPRESA, NMEMPRESA, NUCNPJ, NUINSCRICAO, STATIVO, DTCAD' +
         'ASTRO, DTABERTURA, TLCOMERCIAL, TLCELULAR, TXOBS,'
       '       TXEMAIL, STEXCLUIDO, DTEXCLUIDO'
-      'from CADEMPRESA  ')
+      'from CADEMPRESA  '
+      'where STATIVO = '#39'S'#39' ')
     SQLConnection = UdmConexao.SqlConnection
     Left = 87
     Top = 17

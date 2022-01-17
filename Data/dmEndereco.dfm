@@ -1,7 +1,7 @@
 object UdmEndereco: TUdmEndereco
   OldCreateOrder = False
   Height = 105
-  Width = 178
+  Width = 272
   object QrySelect: TSQLQuery
     MaxBlobSize = -1
     Params = <
@@ -9,9 +9,16 @@ object UdmEndereco: TUdmEndereco
         DataType = ftInteger
         Name = 'IDEMPRESA'
         ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'STATIVO'
+        ParamType = ptInput
       end>
     SQL.Strings = (
-      'select * from CADENDERECOS  where IDEMPRESA = :IDEMPRESA')
+      
+        'select * from CADENDERECOS  where IDEMPRESA = :IDEMPRESA and  ST' +
+        'ATIVO = :STATIVO')
     SQLConnection = UdmConexao.SqlConnection
     Left = 32
     Top = 32
@@ -91,7 +98,29 @@ object UdmEndereco: TUdmEndereco
         'IRRO, :IDCIDADE, :IDUF, :NUCEP, :STATIVO,'
       '        :STEXCLUIDO, :DTEXCLUIDO, :TPCADASTRO);  ')
     SQLConnection = UdmConexao.SqlConnection
-    Left = 104
+    Left = 88
+    Top = 33
+  end
+  object QryDelete: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftUnknown
+        Name = 'IDENDERECO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'delete from CADENDERECOS'
+      'where (IDENDERECO = :IDENDERECO)   ')
+    SQLConnection = UdmConexao.SqlConnection
+    Left = 146
+    Top = 33
+  end
+  object QryUpdate: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = UdmConexao.SqlConnection
+    Left = 206
     Top = 33
   end
 end

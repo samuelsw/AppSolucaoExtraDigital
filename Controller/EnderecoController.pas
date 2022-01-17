@@ -3,7 +3,7 @@ unit EnderecoController;
 interface
 
 uses
-  UEnderecoModel, System.Generics.Collections;
+  UEnderecoModel, System.Generics.Collections, Data.DB;
 
   Type
   TEnderecoController = class
@@ -13,6 +13,9 @@ uses
   public
     function selectByIdEmpresa(idEmpresa : Integer): TList<TEndereco>;
     function insert(novoEndereco: TEndereco): boolean;
+    function delete(idEndereco : Integer): boolean;
+    function update(novoEndereco: TEndereco):boolean;
+
     class function new():TEnderecoController;
  end;
 
@@ -24,23 +27,45 @@ uses
 
 { TEnderecoController }
 
+function TEnderecoController.delete(idEndereco : Integer): boolean;
+begin
+  try
+    result := false;
+    with UdmEndereco.QryDelete do
+    begin
+      Params.Parambyname('IDENDERECO').AsInteger := idEndereco;
+
+      execsql;
+    end;
+    result := true;
+  except
+    raise;
+  end;
+end;
+
 function TEnderecoController.insert(novoEndereco: TEndereco): boolean;
 begin
-  with UdmEndereco.QryInsert do
-  begin
-    Params.Parambyname('IDTITULAR').AsInteger   := novoEndereco.IDTITULAR;
-    Params.Parambyname('IDEMPRESA').AsInteger   := novoEndereco.IDEMPRESA;
-    Params.Parambyname('NMENDERECO').AsString   := novoEndereco.NMENDERECO;
-    Params.Parambyname('NUENDERECO').AsString   := novoEndereco.NUENDERECO;
-    Params.Parambyname('NMBAIRRO').AsString     := novoEndereco.NMBAIRRO;
-    Params.Parambyname('IDCIDADE').AsInteger    := novoEndereco.IDCIDADE;
-    Params.Parambyname('IDUF').AsInteger        := novoEndereco.IDUF;
-    Params.Parambyname('NUCEP').AsString        := novoEndereco.NUCEP;
-    Params.Parambyname('STATIVO').AsString      := novoEndereco.STATIVO;
-    Params.Parambyname('STEXCLUIDO').AsString   := novoEndereco.STEXCLUIDO;
-    Params.Parambyname('DTEXCLUIDO').AsDateTime := novoEndereco.DTEXCLUIDO;
-    Params.Parambyname('TPCADASTRO').AsString   := novoEndereco.TPCADASTRO;
-    execsql;
+  try
+    result := false;
+    with UdmEndereco.QryInsert do
+    begin
+      Params.Parambyname('IDTITULAR').AsInteger   := novoEndereco.IDTITULAR;
+      Params.Parambyname('IDEMPRESA').AsInteger   := novoEndereco.IDEMPRESA;
+      Params.Parambyname('NMENDERECO').AsString   := novoEndereco.NMENDERECO;
+      Params.Parambyname('NUENDERECO').AsString   := novoEndereco.NUENDERECO;
+      Params.Parambyname('NMBAIRRO').AsString     := novoEndereco.NMBAIRRO;
+      Params.Parambyname('IDCIDADE').AsInteger    := novoEndereco.IDCIDADE;
+      Params.Parambyname('IDUF').AsInteger        := novoEndereco.IDUF;
+      Params.Parambyname('NUCEP').AsString        := novoEndereco.NUCEP;
+      Params.Parambyname('STATIVO').AsString      := novoEndereco.STATIVO;
+      Params.Parambyname('STEXCLUIDO').AsString   := novoEndereco.STEXCLUIDO;
+      Params.Parambyname('DTEXCLUIDO').AsDateTime := novoEndereco.DTEXCLUIDO;
+      Params.Parambyname('TPCADASTRO').AsString   := novoEndereco.TPCADASTRO;
+      execsql;
+    end;
+    result := true;
+  except
+    raise;
   end;
 end;
 
@@ -53,7 +78,9 @@ function TEnderecoController.selectByIdEmpresa(idEmpresa : Integer): TList<TEnde
 var EnderecoEmpresa : TEndereco;
 begin
   UdmEndereco.QrySelect.Params.Parambyname('IDEMPRESA').AsInteger := idEmpresa;
+  UdmEndereco.QrySelect.Params.Parambyname('STATIVO').AsString    := 'S';
   UdmEndereco.QrySelect.Open;
+
   result := TList<TEndereco>.Create;
 
   if not UdmEndereco.QrySelect.isempty then
@@ -82,6 +109,11 @@ begin
     end;
   end;
 
+end;
+
+function TEnderecoController.update(novoEndereco: TEndereco): boolean;
+begin
+  //
 end;
 
 end.
